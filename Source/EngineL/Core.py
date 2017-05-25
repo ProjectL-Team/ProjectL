@@ -280,7 +280,7 @@ class Entity(QObject):
         else:
             return self.description
 
-    def generate_inventory_list(self):
+    def generate_inventory_list(self, empty_note=False):
         """
         This constant method generates a list of our inventory (aka or children) for display
         purposes and returns it. If an internal error occurs (e.g. a resource string could not be
@@ -303,7 +303,11 @@ class Entity(QObject):
             pronoun = get_res_man().get_string(string_key_root + gender_key)
 
             if len(children) == 0:
-                return str()
+                if empty_note:
+                    text = pronoun + " " + get_res_man().get_string(string_key_root + "emptyEntity")
+                    return text
+                else:
+                    return str()
 
             if self.is_place:
                 inventory_list = get_res_man().get_string(string_key_root + "placeBeginning")

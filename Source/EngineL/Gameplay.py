@@ -285,7 +285,7 @@ class GameplayParser(QObject):
         elif target_name == keyword_place or target_name == place.objectName():
             self.window.show_text(place.get_description())
         elif target_name == keyword_inventory:
-            self.window.show_text(self.parent().generate_inventory_list())
+            self.window.show_text(self.parent().generate_inventory_list(empty_note=True) + ".")
         else:
             target = place.findChild(Core.Entity, target_name)
             if target is None:
