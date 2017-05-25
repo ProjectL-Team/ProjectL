@@ -19,8 +19,10 @@ class Sofa(EngineL.Core.StaticEntity):
         if other_entity is None:
             if self.get_state("timesScanned") == 0:
                 self.set_state("timesScanned", 1)
+                user.get_window().show_text("${game.places.hut.sofa.interaction0}")
                 return True
             if self.get_state("timesScanned") == 1:
+                user.get_window().show_text("${game.places.hut.sofa.interaction1}")
                 Jam(user)
                 return True
         return False
