@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<safe>
+    <Place name="Ort" description="Das ist ein Ort!">
+        <children>
+            <Player>
+                <children />
+            </Player>
+            <Entity name="Gegenstand" description="Das ist ein Gegenstand!">
+                <children />
+            </Entity>
+        </children>
+    </Place>
+</safe>
