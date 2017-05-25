@@ -13,8 +13,7 @@
         <children>
             <StaticEntity name="${game.places.hut.hole.name}"/>
             <StaticEntity name="${game.places.hut.oven.name}"/>
-            <StaticEntity name="${game.places.hut.sofa.name}"/>
-            <Entity name="${game.places.hut.jam.name}"/>
+            <Sofa name="${game.places.hut.sofa.name}"/>
             <Entity name="${game.places.hut.toast.name}"/>
         </children>
         <connection name="${game.places.alcove.name}"/>
