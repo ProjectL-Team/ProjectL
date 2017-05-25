@@ -1,34 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <safe>
-    <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}">
+    <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}" gender="m">
         <children>
             <Player />
-            <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}"/>
-            <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}"/>
-            <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}"/>
+            <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
+            <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
+            <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
         </children>
         <connection name="${game.places.hut.name}"/>
     </Place>
-    <Place name="${game.places.hut.name}">
+    <Place name="${game.places.hut.name}" description="${game.places.hut.description}" gender="f">
         <children>
-            <StaticEntity name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}"/>
-            <StaticEntity name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}"/>
-            <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}"/>
-            <Entity name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}"/>
+            <StaticEntity name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}" gender="n"/>
+            <StaticEntity name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}" gender="m"/>
+            <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}" gender="n"/>
+            <Entity name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}" gender="m"/>
         </children>
         <connection name="${game.places.alcove.name}"/>
         <connection name="${game.places.yard.name}"/>
     </Place>
-    <Place name="${game.places.yard.name}">
+    <Place name="${game.places.yard.name}" description="${game.places.yard.description}" gender="m">
         <children>
-            <Entity name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}"/>
-            <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}"/>
-            <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}"/>
+            <Entity name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}" gender="n"/>
+            <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}" gender="m"/>
+            <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
         </children>
         <connection name="${game.places.hut.name}"/>
         <connection name="${game.places.roadToIvy.name}"/>
     </Place>
-    <Place name="${game.places.roadToIvy.name}">
+    <Place name="${game.places.roadToIvy.name}" description="${game.places.roadToIvy.description}" gender="m">
         <connection name="${game.places.yard.name}"/>
     </Place>
 </safe>
