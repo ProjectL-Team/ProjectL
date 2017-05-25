@@ -3,6 +3,7 @@ EngineL Game Template
 """
 import EngineL.Core as Core
 import EngineL.Gameplay as Gameplay
+import Hut
 
 class Game(Core.SinglePlayerApp):
     """
@@ -13,6 +14,7 @@ class Game(Core.SinglePlayerApp):
 
         try:
             Gameplay.register_entity_classes(self)
+            Hut.register_entity_classes(self)
 
             self.restore_world()
 
