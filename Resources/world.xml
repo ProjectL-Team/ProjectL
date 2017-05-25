@@ -1,13 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <safe>
-    <Place name="Ort" description="Das ist ein Ort!">
+    <Place name="${game.places.alcove.name}">
         <children>
-            <Player>
-                <children />
-            </Player>
-            <Entity name="Gegenstand" description="Das ist ein Gegenstand!">
-                <children />
-            </Entity>
+            <Player />
+            <StaticEntity name="${game.places.alcove.hammock.name}"/>
+            <StaticEntity name="${game.places.alcove.window.name}"/>
+            <StaticEntity name="${game.places.alcove.mirror.name}"/>
+        </children>
+    </Place>
+    <Place name="${game.places.hut.name}">
+        <children>
+            <StaticEntity name="${game.places.hut.hole.name}"/>
+            <StaticEntity name="${game.places.hut.oven.name}"/>
+            <StaticEntity name="${game.places.hut.sofa.name}"/>
+            <Entity name="${game.places.hut.jam.name}"/>
+            <Entity name="${game.places.hut.toast.name}"/>
+        </children>
+    </Place>
+    <Place name="${game.places.yard.name}">
+        <children>
+            <Entity name="${game.places.yard.wood.name}"/>
+            <StaticEntity name="${game.places.yard.scrapHeap.name}"/>
+            <Entity name="${game.places.yard.mysteriousFind.name}"/>
         </children>
     </Place>
 </safe>
