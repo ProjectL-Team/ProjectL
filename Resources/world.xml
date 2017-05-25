@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <safe>
-    <Place name="${game.places.alcove.name}">
+    <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}">
         <children>
             <Player />
             <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}"/>
