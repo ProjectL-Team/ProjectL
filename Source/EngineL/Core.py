@@ -302,10 +302,7 @@ class Entity(QObject):
             pronoun = get_res_man().get_string(string_key_root + gender_key)
 
             if len(children) == 0:
-                if self.is_place:
-                    return get_res_man().get_string(string_key_root + "emptyPlace")
-                else:
-                    return pronoun + " " + get_res_man().get_string(string_key_root + "emptyEntity")
+                return str()
 
             if self.is_place:
                 inventory_list = get_res_man().get_string(string_key_root + "placeBeginning")
