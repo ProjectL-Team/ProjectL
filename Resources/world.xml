@@ -12,16 +12,16 @@
     <Place name="${game.places.hut.name}">
         <children>
             <StaticEntity name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}"/>
-            <StaticEntity name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}"/>
+            <Oven name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}"/>
             <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}"/>
-            <Entity name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}"/>
+            <Toast name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}"/>
         </children>
         <connection name="${game.places.alcove.name}"/>
         <connection name="${game.places.yard.name}"/>
     </Place>
     <Place name="${game.places.yard.name}">
         <children>
-            <Entity name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}"/>
+            <Wood name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}"/>
             <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}"/>
             <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}"/>
         </children>
