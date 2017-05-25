@@ -480,6 +480,7 @@ class Place(Entity):
         self.is_place = True
         self.connected_places = []
         self.connected_places_names = []
+        self.set_state("visited", 0)
 
     def check_transfer_as_parent(self, subject, target):
         """

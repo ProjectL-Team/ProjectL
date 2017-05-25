@@ -7,6 +7,7 @@
             <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
             <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
         </children>
+        <state key="visited" value="1"/>
         <connection name="${game.places.hut.name}"/>
     </Place>
     <Place name="${game.places.hut.name}" description="${game.places.hut.description}" gender="f">
