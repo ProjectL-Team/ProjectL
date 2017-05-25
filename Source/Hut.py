@@ -56,7 +56,6 @@ class Oven(EngineL.Core.StaticEntity):
         elif isinstance(other_entity, Toast):
             if other_entity.get_state("toasted") == 0 and self.get_state("on") == 1:
                 other_entity.set_state("toasted", 1)
-                other_entity.setParent(None)
                 return True
             else:
                 return False
