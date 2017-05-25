@@ -418,6 +418,21 @@ class Player(Core.Entity):
         """
         return self.gameplay_parser
 
+    def on_transfer(self, subject, parent, target):
+        """
+        If the subject is ourselves and we haven't visited the target yet, we will display it's
+        description and flag it as visited.
+        """
+        Core.Entity.on_transfer(self, subject, parent, target)
+        if subject == self:
+            try:
+                visited = bool(target.get_state("visited"))
+            except KeyError:
+                visited = True
+            if not visited:
+                self.get_window().show_text(target.get_description())
+                target.set_state("visited", 1)
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
