@@ -398,7 +398,6 @@ class Player(Core.Entity):
         Core.Entity.__init__(self, parent)
         self.setObjectName(Core.get_res_man().get_string("core.player.name"))
         self.description = "${core.player.description}"
-        self.gender = Core.get_res_man().get_string("core.player.gender")
 
         self.window = ClientWindow()
         self.window.show()
