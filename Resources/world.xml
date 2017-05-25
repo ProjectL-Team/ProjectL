@@ -13,16 +13,16 @@
     <Place name="${game.places.hut.name}" description="${game.places.hut.description}" gender="f">
         <children>
             <StaticEntity name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}" gender="n"/>
-            <StaticEntity name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}" gender="m"/>
+            <Oven name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}" gender="m"/>
             <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}" gender="n"/>
-            <Entity name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}" gender="m"/>
+            <Toast name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}" gender="m"/>
         </children>
         <connection name="${game.places.alcove.name}"/>
         <connection name="${game.places.yard.name}"/>
     </Place>
     <Place name="${game.places.yard.name}" description="${game.places.yard.description}" gender="m">
         <children>
-            <Entity name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}" gender="n"/>
+            <Wood name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}" gender="n"/>
             <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}" gender="m"/>
             <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
         </children>
