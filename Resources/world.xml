@@ -7,6 +7,7 @@
             <StaticEntity name="${game.places.alcove.window.name}"/>
             <StaticEntity name="${game.places.alcove.mirror.name}"/>
         </children>
+        <connection name="${game.places.hut.name}"/>
     </Place>
     <Place name="${game.places.hut.name}">
         <children>
@@ -16,6 +17,8 @@
             <Entity name="${game.places.hut.jam.name}"/>
             <Entity name="${game.places.hut.toast.name}"/>
         </children>
+        <connection name="${game.places.alcove.name}"/>
+        <connection name="${game.places.yard.name}"/>
     </Place>
     <Place name="${game.places.yard.name}">
         <children>
@@ -23,5 +26,10 @@
             <StaticEntity name="${game.places.yard.scrapHeap.name}"/>
             <Entity name="${game.places.yard.mysteriousFind.name}"/>
         </children>
+        <connection name="${game.places.hut.name}"/>
+        <connection name="${game.places.roadToIvy.name}"/>
+    </Place>
+    <Place name="${game.places.roadToIvy.name}">
+        <connection name="${game.places.yard.name}"/>
     </Place>
 </safe>
