@@ -131,6 +131,7 @@ class ClientWindow(QMainWindow):
         self.command_line.setObjectName("command_line_" + str(child_number))
         self.command_row.layout().addWidget(self.command_line)
         self.command_line.returnPressed.connect(self.return_pressed)
+        self.command_line.setFocus(Qt.ActiveWindowFocusReason)
 
     def add_option_button(self, text):
         """
