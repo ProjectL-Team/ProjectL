@@ -31,7 +31,10 @@ class StringResourceManager(QObject):
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
 
-        self.tree = ElementTree.parse("Resources/strings.xml")
+        try:
+            self.tree = ElementTree.parse("Resources/strings.xml")
+        except (FileNotFoundError, ElementTree.ParseError) as exception:
+            parent.crash(str(exception))
 
     def get_tree(self):
         """
@@ -594,10 +597,7 @@ class SinglePlayerApp(QApplication):
     def __init__(self, argv):
         QApplication.__init__(self, argv)
 
-        try:
-            self.res_man = StringResourceManager(self)
-        except FileNotFoundError as err:
-            self.crash(str(err))
+        self.res_man = StringResourceManager(self)
 
         self.entity_classes_register = dict()
         self.register_entity_classes([Entity, StaticEntity, Place])
