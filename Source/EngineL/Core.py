@@ -242,51 +242,89 @@ class Entity(QObject):
     def generate_inventory_list(self, empty_note=False):
         """
         This constant method generates a list of our inventory (aka or children) for display
-        purposes and returns it. If an internal error occurs (e.g. a resource string could not be
-        found), it will raise a LookupError.
+        purposes and returns it. If empty_note is True and we have no children, it will return a
+        note telling so, but if empty_note is False, it will return an empty string. If an internal
+        error occurs (e.g. a resource string could not be found), it will raise a LookupError.
         """
-        raw_children = self.children()
         children = []
-        for child in raw_children:
+        for child in self.children():
             if issubclass(child.__class__, Entity):
                 children.append(child)
 
-        string_key_root = "core.entity.inventoryList."
+        string_key_root = "${core.entity.inventoryList."
         try:
-            if self.gender == "m":
-                gender_key = "masculinePronoun"
-            elif self.gender == "f":
-                gender_key = "femininePronoun"
-            else:
-                gender_key = "neuterPronoun"
-            pronoun = get_res_man().get_string(string_key_root + gender_key)
-
             if len(children) == 0:
                 if empty_note:
-                    text = pronoun + " " + get_res_man().get_string(string_key_root + "emptyEntity")
-                    return text
+                    return self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
                 else:
                     return str()
 
             if self.is_place:
-                inventory_list = get_res_man().get_string(string_key_root + "placeBeginning")
+                inventory_list = string_key_root + "placeBeginning} "
             else:
-                inventory_list = pronoun + " "
-                inventory_list += get_res_man().get_string(string_key_root + "entityBeginning")
-            inventory_list += "<b>" + children[0].objectName() + "</b>"
+                inventory_list = self.get_pronoun() + " "
+                inventory_list += string_key_root + "entityBeginning} "
+            inventory_list += children[0].get_indefinite_article()
+            inventory_list += " <b>" + children[0].objectName() + "</b>"
 
             if len(children) > 2:
-                separator = get_res_man().get_string(string_key_root + "normalSeparator")
+                separator = string_key_root + "normalSeparator}"
                 for child in children[1:len(children)-1]:
-                    inventory_list += separator + "<b>" + child.objectName() + "</b>"
+                    inventory_list += separator + " " + child.get_indefinite_article()
+                    inventory_list += " <b>" + child.objectName() + "</b>"
 
             if len(children) >= 2:
-                inventory_list += get_res_man().get_string(string_key_root + "lastSeparator")
-                inventory_list += "<b>" + children[len(children)-1].objectName() + "</b>"
+                inventory_list += " " + string_key_root + "lastSeparator} "
+                inventory_list += children[len(children)-1].get_indefinite_article()
+                inventory_list += " <b>" + children[len(children)-1].objectName() + "</b>"
 
             return inventory_list
         except LookupError as err:
             raise err
+
+    def get_pronoun(self, upper=False):
+        """
+        This constant method returns a string containing the key to our pronoun. If upper is True
+        (default), it will return the upper-case version, if not, the lower-case one.
+        """
+        if upper:
+            case_key = "upper"
+        else:
+            case_key = "lower"
+        return "${core.grammar.pronoun." + self.gender + "." + case_key + "}"
+
+    def get_definite_article(self, upper=False):
+        """
+        This constant method returns a string containing the key to our definite article. If upper
+        is True (default), it will return the upper-case version, if not, the lower-case one.
+        """
+        if upper:
+            case_key = "upper"
+        else:
+            case_key = "lower"
+        return "${core.grammar.definiteArticle." + self.gender + "." + case_key + "}"
+
+    def get_indefinite_article(self, upper=False):
+        """
+        This constant method returns a string containing the key to our indefinite article. If upper
+        is True (default), it will return the upper-case version, if not, the lower-case one.
+        """
+        if upper:
+            case_key = "upper"
+        else:
+            case_key = "lower"
+        return "${core.grammar.indefiniteArticle." + self.gender + "." + case_key + "}"
+
+    def get_preposition(self, upper=False):
+        """
+        This constant method returns a string containing the key to our indefinite article. If upper
+        is True (default), it will return the upper-case version, if not, the lower-case one.
+        """
+        if upper:
+            case_key = "upper"
+        else:
+            case_key = "lower"
+        return "${core.grammar.preposition." + self.gender + "." + case_key + "}"
 
     def to_etree_element(self, parent_element):
         """
@@ -544,8 +582,8 @@ class Place(Entity):
         self.connect_place(place)
 
     def get_description(self):
-        desc = self.description + "\n" + self.generate_inventory_list() + self.generate_exit_list()
-        desc += "."
+        desc = self.description + " " + self.generate_inventory_list()
+        desc += self.generate_exit_list() + "."
         return desc
 
     def generate_exit_list(self):
@@ -556,19 +594,23 @@ class Place(Entity):
         try:
             con_places = self.connected_places # a copy to shorten the lines
             if len(con_places) == 0:
-                return get_res_man().get_string("core.place.exitList.noExits")
+                return "${core.place.exitList.noExits}"
 
-            inventory_list = get_res_man().get_string("core.place.exitList.beginning")
-            inventory_list += "<b>" + con_places[0].objectName() + "</b>"
+            inventory_list = "${core.place.exitList.beginning} " + con_places[0].get_preposition()
+            inventory_list += " <b>" + con_places[0].objectName() + "</b>"
 
             if len(con_places) > 2:
-                separator = get_res_man().get_string("core.place.exitList.normalSeparator")
+                separator = " ${core.place.exitList.normalSeparator} "
                 for child in con_places[1:len(con_places)-1]:
-                    inventory_list += separator + "<b>" + child.objectName() + "</b>"
+                    inventory_list += separator + child.get_preposition()
+                    inventory_list += " <b>" + child.objectName() + "</b>"
 
             if len(con_places) >= 2:
-                inventory_list += get_res_man().get_string("core.place.exitList.lastSeparator")
-                inventory_list += "<b>" + con_places[len(con_places)-1].objectName() + "</b>"
+                inventory_list += " ${core.place.exitList.lastSeparator} "
+                inventory_list += con_places[len(con_places)-1].get_preposition()
+                inventory_list += " <b>" + con_places[len(con_places)-1].objectName() + "</b>"
+
+            inventory_list += " ${core.place.exitList.ending}"
         except LookupError as err:
             raise err
 
