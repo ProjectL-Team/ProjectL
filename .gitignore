@@ -8,5 +8,6 @@ Package
 
 # save files
 Resources/save.xml
-# package files
-package/
+
+# Documentation files
+docs/
