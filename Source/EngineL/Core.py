@@ -31,7 +31,10 @@ class StringResourceManager(QObject):
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
 
-        self.tree = ElementTree.parse("Resources/strings.xml")
+        try:
+            self.tree = ElementTree.parse("Resources/strings.xml")
+        except (FileNotFoundError, ElementTree.ParseError) as exception:
+            parent.crash(str(exception))
 
     def get_tree(self):
         """
@@ -179,50 +182,6 @@ class Entity(QObject):
         for child in self.children():
             if issubclass(child.__class__, Entity):
                 child.on_transfer(subject, parent, target)
-
-    def move_to_place(self, new_place_name):
-        """
-        This non-constant method tries to move us to a new place. It Only works if our current
-        parent is a place that is connected to a place with the given name. If successfull, it will
-        return True, if not False, but nothing will be changed.
-        """
-        if self.parent().get_is_place():
-            try:
-                new_place = self.parent().get_connected_place(new_place_name)
-            except LookupError:
-                return False
-
-            if new_place.get_is_place():
-                return self.transfer(new_place)
-            else:
-                return False
-        else:
-            return False
-
-    def pick_up_entity(self, entity_name):
-        """
-        This non-constant method "pick's up" another entity. This means that we take the entity with
-        the given entity_name, which is at our niveau in the world tree, and set it's parent to us.
-        If picking something up didn't work, e.g. an entity with this name doesn't exist, this will
-        return False and nothing will be changed.
-        """
-        other_entity = self.parent().findChild(Entity, entity_name, Qt.FindDirectChildrenOnly)
-        if other_entity is None or len(other_entity.children()) > 0:
-            return False
-        else:
-            return other_entity.transfer(self)
-
-    def lay_down_entity(self, entity_name):
-        """
-        This non-constant method "lays" another entity down. This means that we take the entity with
-        the given name, which has to be our child, and set it's parent to ours. If this was
-        successfull, we will return True, if not, False and nothing will be changed.
-        """
-        other_entity = self.findChild(Entity, entity_name, Qt.FindDirectChildrenOnly)
-        if other_entity is None:
-            return False
-        else:
-            return other_entity.transfer(self.parent())
 
     def talk_to(self, target_name):
         """
@@ -680,10 +639,7 @@ class SinglePlayerApp(QApplication):
     def __init__(self, argv):
         QApplication.__init__(self, argv)
 
-        try:
-            self.res_man = StringResourceManager(self)
-        except FileNotFoundError as err:
-            self.crash(str(err))
+        self.res_man = StringResourceManager(self)
 
         self.entity_classes_register = dict()
         self.register_entity_classes([Entity, StaticEntity, Place])

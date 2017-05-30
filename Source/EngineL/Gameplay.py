@@ -296,30 +296,44 @@ class GameplayParser(QObject):
 
     def exec_walk_to(self):
         """
-        This non-constant method executes the "walk to" command, which is done by calling the
-        Entity's move_to_place method. If this failed, it tells the user so.
+        This non-constant method executes the "walk to" command, which is done by finding the target
+        and transfering our parent, the player, to it. If it fails, it will post a message to the
+        player that tells him so and nothing will be changed.
         """
         target_name = self.get_argument_as_string()
-        if not self.parent().move_to_place(target_name):
+        app = QCoreApplication.instance()
+        target = app.findChild(Core.Entity, target_name, Qt.FindDirectChildrenOnly)
+        if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+        elif not self.parent().transfer(target):
+            self.window.show_text("${core.gameplayParser.genericError}")
 
     def exec_pick_up(self):
         """
-        This non-constant method executes the "pick up" command, which is done by calling the
-        Entity's pick_up_entity method. If this failed, it tells the user so.
+        This non-constant method executes the "pick up" command, which is done by finding the target
+        and transfering it onto our parent, the player. If it fails, it will post a message to the
+        player that tells him so and nothing will be changed.
         """
         target_name = self.get_argument_as_string()
-        if not self.parent().pick_up_entity(target_name):
+        place = self.parent().parent()
+        target = place.findChild(Core.Entity, target_name, Qt.FindDirectChildrenOnly)
+        if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+        elif not target.transfer(self.parent()):
+            self.window.show_text("${core.gameplayParser.genericError}")
 
     def exec_drop(self):
         """
-        This non-constant method executes the "drop" command, which is done by calling the
-        Entity's lay_down_entity method. If this failed, it tells the user so.
+        This non-constant method executes the "drop" command, which is done by finding the target
+        and transfering it onto our parent's parent, which should be our current place. If it fails,
+        it will post a message to the player that tells him so and nothing will be changed.
         """
         target_name = self.get_argument_as_string()
-        if not self.parent().lay_down_entity(target_name):
+        target = self.parent().findChild(Core.Entity, target_name, Qt.FindDirectChildrenOnly)
+        if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+        elif not target.transfer(self.parent().parent()):
+            self.window.show_text("${core.gameplayParser.genericError}")
 
     def exec_combine(self):
         """
@@ -376,7 +390,7 @@ class GameplayParser(QObject):
 
         # Call the player's "use" method.
         if not arg_a.on_used(self.parent(), arg_b):
-            text = "${core.gameplayParser.combine.invalidCombination}"
+            text = "${core.gameplayParser.genericError}"
             self.window.show_text(text)
             return
 
