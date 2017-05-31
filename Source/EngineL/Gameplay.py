@@ -448,6 +448,44 @@ class Player(Core.Entity):
                 self.get_window().show_text(target.get_description())
                 target.set_state("visited", 1)
 
+    def generate_inventory_list(self, empty_note=False):
+        """
+        This constant method is an exact copy of the Entity's generate_inventory_list, but it
+        replaces the beginning and the "emptyEntity" message with it's own versions. This way, the
+        description will say "I have ..." instead of "He has ...", for example.
+        """
+        children = []
+        for child in self.children():
+            if issubclass(child.__class__, Core.Entity):
+                children.append(child)
+
+        string_key_root = "${core.entity.inventoryList."
+        try:
+            if len(children) == 0:
+                if empty_note:
+                    return "${core.player.emptyBag}"
+                else:
+                    return str()
+
+            inventory_list = "${core.player.beginning} "
+            inventory_list += children[0].get_indefinite_article()
+            inventory_list += " <b>" + children[0].objectName() + "</b>"
+
+            if len(children) > 2:
+                separator = string_key_root + "normalSeparator}"
+                for child in children[1:len(children)-1]:
+                    inventory_list += separator + " " + child.get_indefinite_article()
+                    inventory_list += " <b>" + child.objectName() + "</b>"
+
+            if len(children) >= 2:
+                inventory_list += " " + string_key_root + "lastSeparator} "
+                inventory_list += children[len(children)-1].get_indefinite_article()
+                inventory_list += " <b>" + children[len(children)-1].objectName() + "</b>"
+
+            return inventory_list
+        except LookupError as err:
+            raise err
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
