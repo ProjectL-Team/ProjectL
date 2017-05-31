@@ -282,9 +282,9 @@ class GameplayParser(QObject):
         keyword_inventory = Core.get_res_man().get_string(key_inventory)
 
         if len(target_name) == 0:
-            self.window.show_text(place.get_description())
+            self.window.show_text(place.generate_description())
         elif target_name == keyword_place or target_name == place.objectName():
-            self.window.show_text(place.get_description())
+            self.window.show_text(place.generate_description())
         elif target_name == keyword_inventory:
             self.window.show_text(self.parent().generate_inventory_list(empty_note=True) + ".")
         else:
@@ -292,7 +292,7 @@ class GameplayParser(QObject):
             if target is None:
                 self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
             else:
-                self.window.show_text(target.get_description())
+                self.window.show_text(target.generate_description())
 
     def exec_walk_to(self):
         """
@@ -445,7 +445,7 @@ class Player(Core.Entity):
             except KeyError:
                 visited = True
             if not visited:
-                self.get_window().show_text(target.get_description())
+                self.get_window().show_text(target.generate_description())
                 target.set_state("visited", 1)
 
     def generate_inventory_list(self, empty_note=False):
