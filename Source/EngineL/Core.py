@@ -229,15 +229,24 @@ class Entity(QObject):
         """
         return False
 
-    def get_description(self):
+    def get_raw_description(self):
         """
-        This constant method returns our description.
+        This constant, semi-abstract method returns our current raw description which does not
+        include automated descriptions like the exit or inventory listing. At default, this method
+        always returns a single description, but it may be overriden at free will.
+        """
+        return self.description
+
+    def generate_description(self):
+        """
+        This constant method returns our description including our raw description and additional
+        automated listings.
         """
         inventory_list = self.generate_inventory_list()
         if len(inventory_list) > 0:
-            return self.description + " " + inventory_list + "."
+            return self.get_raw_description() + " " + inventory_list + "."
         else:
-            return self.description
+            return self.get_raw_description()
 
     def generate_inventory_list(self, empty_note=False):
         """
@@ -581,7 +590,7 @@ class Place(Entity):
             raise err
         self.connect_place(place)
 
-    def get_description(self):
+    def generate_description(self):
         desc = self.description + " " + self.generate_inventory_list()
         desc += self.generate_exit_list() + "."
         return desc
