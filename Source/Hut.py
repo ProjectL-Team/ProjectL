@@ -107,6 +107,7 @@ class Toast(EngineL.Core.Entity):
             return other_entity.on_used(user, self)
         elif other_entity is None and self.get_state("coated") == 1:
             self.setParent(None)
+            return True
         else:
             return False
 
