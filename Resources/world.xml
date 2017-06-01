@@ -33,62 +33,62 @@
         <connection name="${game.places.yard.name}"/>
         <connection name="${game.places.village.name}"/>
     </Place>
-    <Place name="${game.places.village.name}" gender="n">
+    <Place name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
         <children>
-            <StaticEntity name="${game.places.village.well.name}" />
-            <StaticEntity name="${game.places.village.geraltsHouse.name}" />
-            <StaticEntity name="${game.places.village.house1.name}" />
-            <StaticEntity name="${game.places.village.house2.name}" />
-            <StaticEntity name="${game.places.village.house3.name}" />
+            <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />
+            <StaticEntity name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
+            <StaticEntity name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
+            <StaticEntity name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
+            <StaticEntity name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
         </children>
         <connection name="${game.places.roadToIvy.name}"/>
         <connection name="${game.places.roadToHabour.name}"/>
         <connection name="${game.places.field.name}"/>
         <connection name="${game.places.westSlope.name}"/>
     </Place>
-    <Place name="${game.places.roadToHabour.name}" gender="m">
+    <Place name="${game.places.roadToHabour.name}" description="${game.places.roadToHabour.description}" gender="m">
         <connection name="${game.places.village.name}"/>
         <connection name="${game.places.habour.name}"/>
     </Place>
-    <Place name="${game.places.habour.name}" gender="m">
+    <Place name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
         <children>
-            <StaticEntity name="${game.places.habour.crane.name}" gender="m" />
-            <StaticEntity name="${game.places.habour.wall.name}" gender="f" />
-            <StaticEntity name="${game.places.habour.landingStage.name}" gender="m" />
-            <StaticEntity name="${game.places.habour.container.name}" gender="m" />
-            <StaticEntity name="${game.places.habour.junkpile.name}" gender="m" />
-            <StaticEntity name="${game.places.habour.oldBoat.name}" gender="n" />
-            <StaticEntity name="${game.places.habour.ocean.name}" gender="n" />
+            <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />
+            <StaticEntity name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
+            <StaticEntity name="${game.places.habour.landingStage.name}" description="${game.places.habour.landingStage.description}" gender="m" />
+            <StaticEntity name="${game.places.habour.container.name}" description="${game.places.habour.container.description}" gender="m" />
+            <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
+            <StaticEntity name="${game.places.habour.oldBoat.name}" description="${game.places.habour.oldBoat.description}" gender="n" />
+            <StaticEntity name="${game.places.habour.ocean.name}" description="${game.places.habour.ocean.description}" gender="n" />
         </children>
         <connection name="${game.places.roadToHabour.name}"/>
     </Place>
-    <Place name="${game.places.field.name}" gender="n">
+    <Place name="${game.places.field.name}" description="${game.places.field.description}" gender="n">
         <children>
-            <StaticEntity name="${game.places.field.bed1.name}" gender="n" />
-            <StaticEntity name="${game.places.field.bed2.name}" gender="n" />
-            <StaticEntity name="${game.places.field.bed3.name}" gender="n" />
-            <StaticEntity name="${game.places.field.bed4.name}" gender="n" />
-            <StaticEntity name="${game.places.field.compostBin.name}" gender="n" />
+            <StaticEntity name="${game.places.field.bed1.name}" description="${game.places.field.bed1.description}" gender="n" />
+            <StaticEntity name="${game.places.field.bed2.name}" description="${game.places.field.bed2.description}" gender="n" />
+            <StaticEntity name="${game.places.field.bed3.name}" description="${game.places.field.bed3.description}" gender="n" />
+            <StaticEntity name="${game.places.field.bed4.name}" description="${game.places.field.bed4.description}" gender="n" />
+            <StaticEntity name="${game.places.field.compostBin.name}" description="${game.places.field.compostBin.description}" gender="n" />
         </children>
         <connection name="${game.places.village.name}"/>
     </Place>
-    <Place name="${game.places.westSlope.name}" gender="m">
+    <Place name="${game.places.westSlope.name}" description="${game.places.westSlope.description}" gender="m">
         <children>
-            <StaticEntity name="${game.places.westSlope.junkpile.name}" gender="m" />
+            <StaticEntity name="${game.places.westSlope.junkpile.name}" description="${game.places.westSlope.junkpile.description}" gender="m" />
         </children>
         <connection name="${game.places.village.name}"/>
         <connection name="${game.places.mountainTop.name}"/>
     </Place>
-    <Place name="${game.places.mountainTop.name}" gender="f">
+    <Place name="${game.places.mountainTop.name}" description="${game.places.mountainTop.description}" gender="f">
         <children>
-            <StaticEntity name="${game.places.mountainTop.junkpile.name}" gender="m" />
+            <StaticEntity name="${game.places.mountainTop.junkpile.name}" description="${game.places.mountainTop.junkpile.description}" gender="m" />
         </children>
         <connection name="${game.places.westSlope.name}"/>
         <connection name="${game.places.eastSlope.name}"/>
     </Place>
-    <Place name="${game.places.eastSlope.name}" gender="m">
+    <Place name="${game.places.eastSlope.name}" description="${game.places.eastSlope.description}" gender="m">
         <children>
-            <StaticEntity name="${game.places.eastSlope.junkpile.name}" gender="m" />
+            <StaticEntity name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" />
         </children>
         <connection name="${game.places.mountainTop.name}"/>
     </Place>
