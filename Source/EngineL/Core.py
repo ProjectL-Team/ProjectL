@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from collections import deque
+import os.path
 from xml.etree import ElementTree
 from PyQt5.QtCore import QObject, Qt
 from PyQt5.QtWidgets import QApplication, QErrorMessage
@@ -722,7 +723,7 @@ class SinglePlayerApp(QApplication):
                 if issubclass(child.__class__, Entity):
                     child.to_etree_element(tree.getroot())
 
-            tree.write("Resources/save.xml", encoding="UTF-8", xml_declaration=True)
+            tree.write("Resources/save.xml", encoding="UTF-16", xml_declaration=True)
 
     def restore_world(self):
         """
@@ -732,15 +733,10 @@ class SinglePlayerApp(QApplication):
         Also, it may raise any kind of exception if something in the process went wrong. If this is
         the case, the world will be in a valid but changed state.
         """
-        try:
-            my_file = open("Resources/save.xml")
-        except FileNotFoundError:
-            try:
-                my_file = open("Resources/world.xml")
-            except FileNotFoundError as err:
-                raise err
-        tree = ElementTree.parse(my_file)
-        my_file.close()
+        save_path = "Resources/save.xml"
+        if not os.path.exists(save_path):
+            save_path = "Resources/world.xml"
+        tree = ElementTree.parse(save_path)
 
         for child in list(tree.getroot()):
             entity_class = self.lookup_entity_class(child.tag)
