@@ -35,6 +35,7 @@ class Jam(EngineL.Core.Entity):
     def __init__(self, parent=None):
         EngineL.Core.Entity.__init__(self, parent)
         self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.hut.jam.name"))
+
     def on_used(self, user, other_entity=None):
         """
         This non-constant, overriden method does something.
@@ -57,6 +58,7 @@ class Oven(EngineL.Core.StaticEntity):
     def __init__(self, parent=None):
         EngineL.Core.StaticEntity.__init__(self, parent)
         self.set_state("on", 0)
+
     def on_used(self, user, other_entity=None):
         """
         This non-constant, overriden method does something.
@@ -81,26 +83,35 @@ class Wood(EngineL.Core.Entity):
     """
     the wood
     """
+
     def __init__(self, parent=None):
         EngineL.Core.Entity.__init__(self, parent)
         self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.yard.wood.name"))
+
     def on_used(self, user, other_entity=None):
+        """
+        This non-constant, overriden method does something.
+        """
         if isinstance(other_entity, Oven):
             return other_entity.on_used(user, self)
         else:
             return False
 
-
 class Toast(EngineL.Core.Entity):
     """
     the Toast
     """
+
     def __init__(self, parent=None):
         EngineL.Core.Entity.__init__(self, parent)
         self.set_state("toasted", 0)
         self.set_state("coated", 0)
         self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.hut.toast.name"))
+
     def on_used(self, user, other_entity=None):
+        """
+        This non-constant, overriden method does something.
+        """
         if isinstance(other_entity, Oven):
             return other_entity.on_used(user, self)
         elif isinstance(other_entity, Jam):
