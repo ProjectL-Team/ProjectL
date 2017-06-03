@@ -79,6 +79,16 @@ class Oven(EngineL.Core.StaticEntity):
         else:
             return False
 
+    def get_raw_description(self):
+        """
+        This overriden, constant method returns a new description if the status of an entity has
+        changed.
+        """
+        if self.get_state("on") == 1:
+            return "DER OFEN IST AN"
+        else:
+            return self.description
+
 class Wood(EngineL.Core.Entity):
     """
     the wood
@@ -121,6 +131,18 @@ class Toast(EngineL.Core.Entity):
             return True
         else:
             return False
+
+    def get_raw_description(self):
+        """
+        This overriden, constant method returns a new description if the status of an entity has
+        changed.
+        """
+        if self.get_state("coated") == 0 and self.get_state("toasted") == 1:
+            return "DAS TOAST IST LECKER GETOASTED"
+        elif self.get_state("coated") == 1 and self.get_state("toasted") == 1:
+            return "DAS TOAST IST BESTRICHEN"
+        else:
+            return self.description
 
 def register_entity_classes(app):
     """
