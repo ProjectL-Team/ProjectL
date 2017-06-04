@@ -33,6 +33,10 @@ class Game(Source.EngineL.Core.SinglePlayerApp):
         except Exception as err:
             self.crash(str(err))
 
+        for child in self.children():
+            if issubclass(child.__class__, Source.EngineL.Core.Entity):
+                child.on_game_launched()
+
 if __name__ == "__main__":
     import sys
     GAME_INSTANCE = Game(sys.argv)
