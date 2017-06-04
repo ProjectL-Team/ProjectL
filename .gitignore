@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # Distribution / packaging
-Package
+*.zip
 
 # save files
 Resources/save.xml

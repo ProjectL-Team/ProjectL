@@ -1,15 +1,31 @@
 """
-test
-"""
-import EngineL.Core
+All classes required by the tutorial part of ProjectL
 
-class Sofa(EngineL.Core.StaticEntity):
+Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 Jason "J2a0s0o0n" Becker
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+import Source.EngineL.Core as Core
+
+class Sofa(Core.StaticEntity):
     """
     the sofa
     """
 
     def __init__(self, parent=None):
-        EngineL.Core.StaticEntity.__init__(self, parent)
+        Core.StaticEntity.__init__(self, parent)
         self.set_state("timesScanned", 0)
 
     def on_used(self, user, other_entity=None):
@@ -27,14 +43,14 @@ class Sofa(EngineL.Core.StaticEntity):
                 return True
         return False
 
-class Jam(EngineL.Core.Entity):
+class Jam(Core.Entity):
     """
     the jam
     """
 
     def __init__(self, parent=None):
-        EngineL.Core.Entity.__init__(self, parent)
-        self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.hut.jam.name"))
+        Core.Entity.__init__(self, parent)
+        self.setObjectName(Core.get_res_man().get_string("game.places.hut.jam.name"))
 
     def on_used(self, user, other_entity=None):
         """
@@ -50,13 +66,13 @@ class Jam(EngineL.Core.Entity):
         else:
             return False
 
-class Oven(EngineL.Core.StaticEntity):
+class Oven(Core.StaticEntity):
     """
     the oven
     """
 
     def __init__(self, parent=None):
-        EngineL.Core.StaticEntity.__init__(self, parent)
+        Core.StaticEntity.__init__(self, parent)
         self.set_state("on", 0)
 
     def on_used(self, user, other_entity=None):
@@ -89,14 +105,14 @@ class Oven(EngineL.Core.StaticEntity):
         else:
             return self.description
 
-class Wood(EngineL.Core.Entity):
+class Wood(Core.Entity):
     """
     the wood
     """
 
     def __init__(self, parent=None):
-        EngineL.Core.Entity.__init__(self, parent)
-        self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.yard.wood.name"))
+        Core.Entity.__init__(self, parent)
+        self.setObjectName(Core.get_res_man().get_string("game.places.yard.wood.name"))
 
     def on_used(self, user, other_entity=None):
         """
@@ -107,16 +123,16 @@ class Wood(EngineL.Core.Entity):
         else:
             return False
 
-class Toast(EngineL.Core.Entity):
+class Toast(Core.Entity):
     """
     the Toast
     """
 
     def __init__(self, parent=None):
-        EngineL.Core.Entity.__init__(self, parent)
+        Core.Entity.__init__(self, parent)
         self.set_state("toasted", 0)
         self.set_state("coated", 0)
-        self.setObjectName(EngineL.Core.get_res_man().get_string("game.places.hut.toast.name"))
+        self.setObjectName(Core.get_res_man().get_string("game.places.hut.toast.name"))
 
     def on_used(self, user, other_entity=None):
         """

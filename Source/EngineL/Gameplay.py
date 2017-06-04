@@ -21,7 +21,7 @@ from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit
 from PyQt5.QtWidgets import QMenuBar, QPushButton
-from EngineL import Core
+from Source.EngineL import Core
 
 class ClientWindow(QMainWindow):
     """
