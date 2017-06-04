@@ -184,6 +184,16 @@ class Entity(QObject):
             if issubclass(child.__class__, Entity):
                 child.on_transfer(subject, parent, target)
 
+    def on_game_launched(self):
+        """
+        This semi-abstract method gets only called when the game has started. At default, it only
+        passes the event to our children, but I can override it in any other way.
+        """
+        for child in self.children():
+            if issubclass(child.__class__, Entity):
+                child.on_game_launched()
+
+
     def talk_to(self, target_name):
         """
         This non-constant method starts a conversation with another entity by calling it's
