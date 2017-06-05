@@ -138,15 +138,17 @@ class Entity(QObject):
         transfer_okay = True
         if not self.check_transfer_as_subject(targeted_parent):
             transfer_okay = False
-        if not self.parent().check_transfer_as_parent(self, targeted_parent):
-            transfer_okay = False
-        if not targeted_parent.check_transfer_as_target(self):
-            transfer_okay = False
+        if self.parent() is not None:
+            if not self.parent().check_transfer_as_parent(self, targeted_parent):
+                transfer_okay = False
+        if targeted_parent is not None:
+            if not targeted_parent.check_transfer_as_target(self):
+                transfer_okay = False
+
         if transfer_okay:
             old_parent = self.parent()
-            app = QApplication.instance()
             self.setParent(targeted_parent)
-            app.on_transfer(self, old_parent, targeted_parent)
+            QApplication.instance().on_transfer(self, old_parent, targeted_parent)
         return transfer_okay
 
     def check_transfer_as_subject(self, targeted_parent):
@@ -161,12 +163,15 @@ class Entity(QObject):
         This constant method checks whether the planned transfer is ok. In detail, it checks whether
         the subject is one of our childs and whether the target is at the same place as we are.
         """
-        if not subject in self.children():
-            return False
-        parent = self
-        while not parent.get_is_place():
-            parent = parent.parent()
-        return parent == target or parent.findChild(Entity, target.objectName()) is not None
+        if target is None:
+            return True
+        else:
+            if not subject in self.children():
+                return False
+            parent = self
+            while not parent.get_is_place():
+                parent = parent.parent()
+            return parent == target or parent.findChild(Entity, target.objectName()) is not None
 
     def check_transfer_as_target(self, subject):
         """
