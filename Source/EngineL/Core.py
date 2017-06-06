@@ -128,6 +128,8 @@ class Entity(QObject):
         self.is_place = False
         self.states = dict()
         self.gender = "n"
+        self.show_article = True
+        self.use_definite_article = False
 
     def transfer(self, targeted_parent):
         """
@@ -274,19 +276,19 @@ class Entity(QObject):
             else:
                 inventory_list = self.get_pronoun() + " "
                 inventory_list += string_key_root + "entityBeginning} "
-            inventory_list += children[0].get_indefinite_article()
-            inventory_list += " <b>" + children[0].objectName() + "</b>"
+            inventory_list += children[0].get_effective_article() + " "
+            inventory_list += "<b>" + children[0].objectName() + "</b>"
 
             if len(children) > 2:
-                separator = string_key_root + "normalSeparator}"
                 for child in children[1:len(children)-1]:
-                    inventory_list += separator + " " + child.get_indefinite_article()
-                    inventory_list += " <b>" + child.objectName() + "</b>"
+                    inventory_list += string_key_root + "normalSeparator} "
+                    inventory_list += child.get_effective_article() + " "
+                    inventory_list += "<b>" + child.objectName() + "</b>"
 
             if len(children) >= 2:
                 inventory_list += " " + string_key_root + "lastSeparator} "
-                inventory_list += children[len(children)-1].get_indefinite_article()
-                inventory_list += " <b>" + children[len(children)-1].objectName() + "</b>"
+                inventory_list += children[len(children)-1].get_effective_article() + " "
+                inventory_list += "<b>" + children[len(children)-1].objectName() + "</b>"
 
             return inventory_list
         except LookupError as err:
@@ -302,6 +304,21 @@ class Entity(QObject):
         else:
             case_key = "lower"
         return "${core.grammar.pronoun." + self.gender + "." + case_key + "}"
+
+    def get_effective_article(self, upper=False):
+        """
+        This constant method returns a string containing the key to our article accounting our
+        shown_article and use_definite_article flags. This might even lead to an empty string as a
+        return value. If upper is True (default), it will return the upper-case version, if not,
+        the lower-case one.
+        """
+        if self.get_show_article():
+            if self.get_use_definite_article():
+                return self.get_definite_article(upper)
+            else:
+                return self.get_indefinite_article(upper)
+        else:
+            return str()
 
     def get_definite_article(self, upper=False):
         """
@@ -348,6 +365,10 @@ class Entity(QObject):
         element.attrib["description"] = self.description
         element.attrib["gender"] = self.gender
 
+        article_element = ElementTree.SubElement(element, "article")
+        article_element.attrib["shown"] = str(self.show_article)
+        article_element.attrib["used"] = str(self.use_definite_article)
+
         for state in self.states.items():
             children_element = ElementTree.SubElement(element, "state")
             children_element.attrib["key"] = state[0]
@@ -384,6 +405,22 @@ class Entity(QObject):
             self.gender = o_gender
         except KeyError:
             pass
+
+        article_element = element.find("article")
+        if article_element is not None:
+            try:
+                o_show = article_element.attrib["shown"]
+                o_show = bool(o_show)
+                self.show_article = o_show
+            except (TypeError, KeyError):
+                pass
+
+            try:
+                o_definite = article_element.attrib["definite"]
+                o_definite = bool(o_definite)
+                self.use_definite_article = o_definite
+            except (TypeError, KeyError):
+                pass
 
         for state_element in element.findall("state"):
             key = state_element.get("key")
@@ -462,6 +499,19 @@ class Entity(QObject):
         "m", "f" or "n"
         """
         self.gender = new_gender
+
+    def get_show_article(self):
+        """
+        This constant method returns True if we want our article to be shown and False if not.
+        """
+        return self.show_article
+
+    def get_use_definite_article(self):
+        """
+        This constant method returns True if we want our definite article to be shown and False if
+        we want the indefinite one.
+        """
+        return self.use_definite_article
 
 class StaticEntity(Entity):
     """

@@ -413,6 +413,8 @@ class Player(Core.Entity):
         Core.Entity.__init__(self, parent)
         self.setObjectName(Core.get_res_man().get_string("core.player.name"))
         self.description = "${core.player.description}"
+        self.gender = "f"
+        self.show_article = False
 
         self.window = ClientWindow()
         self.window.show()
@@ -468,19 +470,19 @@ class Player(Core.Entity):
                     return str()
 
             inventory_list = "${core.player.beginning} "
-            inventory_list += children[0].get_indefinite_article()
-            inventory_list += " <b>" + children[0].objectName() + "</b>"
+            inventory_list += children[0].get_effective_article() + " "
+            inventory_list += "<b>" + children[0].objectName() + "</b>"
 
             if len(children) > 2:
-                separator = string_key_root + "normalSeparator}"
                 for child in children[1:len(children)-1]:
-                    inventory_list += separator + " " + child.get_indefinite_article()
-                    inventory_list += " <b>" + child.objectName() + "</b>"
+                    inventory_list += string_key_root + "normalSeparator} "
+                    inventory_list += child.get_effective_article() + " "
+                    inventory_list += "<b>" + child.objectName() + "</b>"
 
             if len(children) >= 2:
                 inventory_list += " " + string_key_root + "lastSeparator} "
-                inventory_list += children[len(children)-1].get_indefinite_article()
-                inventory_list += " <b>" + children[len(children)-1].objectName() + "</b>"
+                inventory_list += children[len(children)-1].get_effective_article() + " "
+                inventory_list += "<b>" + children[len(children)-1].objectName() + "</b>"
 
             return inventory_list
         except LookupError as err:
