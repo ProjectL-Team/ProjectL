@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <safe>
     <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}" gender="m">
         <children>
-            <Player gender="f"/>
+            <Player/>
             <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
             <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
             <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
@@ -76,7 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <StaticEntity name="${game.places.habour.container.name}" description="${game.places.habour.container.description}" gender="m" />
             <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
             <StaticEntity name="${game.places.habour.oldBoat.name}" description="${game.places.habour.oldBoat.description}" gender="n" />
-            <StaticEntity name="${game.places.habour.ocean.name}" description="${game.places.habour.ocean.description}" gender="n" />
+            <StaticEntity name="${game.places.habour.ocean.name}" description="${game.places.habour.ocean.description}" gender="n">
+                <article definite="True"/>
+            </StaticEntity>
         </children>
         <connection name="${game.places.roadToHabour.name}"/>
     </Place>
