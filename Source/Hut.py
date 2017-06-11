@@ -154,9 +154,9 @@ class Toast(Core.Entity):
         changed.
         """
         if self.get_state("coated") == 0 and self.get_state("toasted") == 1:
-            return "Das Toast ist jetzt getoasted. So ganz ohne Aufstrich will ich es aber nicht essen."
+            return "Der Toast ist jetzt getoasted. So ganz ohne Aufstrich will ich ihn aber nicht essen."
         elif self.get_state("coated") == 1 and self.get_state("toasted") == 1:
-            return "Perfekt. Mein Toast hat jetzt eine rot-glänzende Marmeladenschicht drauf. Jetzt muss ich es nur noch essen."
+            return "Perfekt. Mein Toast hat jetzt eine rot-glänzende Marmeladenschicht drauf. Jetzt muss ich ihn nur noch essen."
         else:
             return self.description
 
