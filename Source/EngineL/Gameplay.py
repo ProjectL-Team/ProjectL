@@ -435,6 +435,13 @@ class Player(Core.Entity):
         """
         return self.gameplay_parser
 
+    def on_game_launched(self):
+        """
+        This constant, overriden method gets called when the game has just started and shows the
+        description of our current place.
+        """
+        self.get_window().show_text(self.parent().generate_description())
+
     def on_transfer(self, subject, parent, target):
         """
         This constant, overriden method does two things: First, if we are the the subject and we
@@ -445,13 +452,7 @@ class Player(Core.Entity):
         Core.Entity.on_transfer(self, subject, parent, target)
 
         if subject == self:
-            try:
-                visited = bool(target.get_state("visited"))
-            except KeyError:
-                visited = True
-            if not visited:
-                self.get_window().show_text(target.generate_description())
-                target.set_state("visited", 1)
+            self.get_window().show_text(target.generate_description())
 
         if target == self:
             message = "${core.player.beginning} " + subject.get_indefinite_article() + " "
