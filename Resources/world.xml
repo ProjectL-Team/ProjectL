@@ -20,7 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <safe>
     <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}" gender="m">
         <children>
-            <Player/>
+            <Player>
+                <children>
+                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
+                </children>
+            </Player>
             <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
             <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
             <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
@@ -30,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </Place>
     <Place name="${game.places.hut.name}" description="${game.places.hut.description}" gender="f">
         <children>
-            <StaticEntity name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}" gender="n"/>
+            <HoleInRoof name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}" gender="n"/>
             <Oven name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}" gender="m"/>
             <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}" gender="n"/>
             <Toast name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}" gender="m"/>

@@ -163,8 +163,44 @@ class Toast(Core.Entity):
         else:
             return self.description
 
+class HoleInRoof(Core.StaticEntity):
+    """
+    This is the hole in the roof which will be filled with the stopper.
+    """
+    def __init__(self, parent=None):
+        Core.StaticEntity.__init__(self, parent)
+
+    def on_used(self, user, other_entity=None):
+        """
+        This non-constant method takes a stopper, destroys itself and the stopper and returns True.
+        If the other_entity is not a stopper, it returns False.
+        """
+        if isinstance(other_entity, Stopper):
+            self.transfer(None)
+            other_entity.transfer(None)
+            return True
+        else:
+            return False
+
+class Stopper(Core.Entity):
+    """
+    This is a stopper which is used to fill the whole in the hut's roof.
+    """
+    def __init__(self, parent=None):
+        Core.Entity.__init__(self, parent)
+
+    def on_used(self, user, other_entity=None):
+        """
+        This non-constant method passes the on_used-event to the other_entity and returns it's
+        return value. If no other_entity were given, it will return False.
+        """
+        if other_entity is not None:
+            return other_entity.on_used(user, self)
+        else:
+            return False
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([Sofa, Jam, Oven, Toast, Wood])
+    app.register_entity_classes([Sofa, Jam, Oven, Toast, Wood, HoleInRoof, Stopper])
