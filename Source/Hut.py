@@ -39,7 +39,8 @@ class Sofa(Core.StaticEntity):
                 return True
             if self.get_state("timesScanned") == 1:
                 user.get_window().show_text("${game.places.hut.sofa.interaction1}")
-                Jam(user)
+                jam = Jam()
+                jam.transfer(user)
                 return True
         return False
 
@@ -51,6 +52,7 @@ class Jam(Core.Entity):
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
         self.setObjectName(Core.get_res_man().get_string("game.places.hut.jam.name"))
+        self.set_gender("f")
 
     def on_used(self, user, other_entity=None):
         """
@@ -59,7 +61,7 @@ class Jam(Core.Entity):
         if isinstance(other_entity, Toast):
             if other_entity.get_state("toasted") == 1:
                 other_entity.set_state("coated", 1)
-                self.setParent(None)
+                self.transfer(None)
                 return True
             else:
                 return False
@@ -82,7 +84,7 @@ class Oven(Core.StaticEntity):
         if isinstance(other_entity, Wood):
             if self.get_state("on") == 0:
                 self.set_state("on", 1)
-                other_entity.setParent(None)
+                other_entity.transfer(None)
                 return True
             else:
                 return False
@@ -143,7 +145,7 @@ class Toast(Core.Entity):
         elif isinstance(other_entity, Jam):
             return other_entity.on_used(user, self)
         elif other_entity is None and self.get_state("coated") == 1:
-            self.setParent(None)
+            self.transfer(None)
             return True
         else:
             return False

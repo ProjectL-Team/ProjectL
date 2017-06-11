@@ -437,10 +437,13 @@ class Player(Core.Entity):
 
     def on_transfer(self, subject, parent, target):
         """
-        If the subject is ourselves and we haven't visited the target yet, we will display it's
-        description and flag it as visited.
+        This constant, overriden method does two things: First, if we are the the subject and we
+        moved to a place that is not marked as visited, we will display the the description of this
+        place. Second, if we are the target, we will post a message telling that we received a new
+        item.
         """
         Core.Entity.on_transfer(self, subject, parent, target)
+
         if subject == self:
             try:
                 visited = bool(target.get_state("visited"))
@@ -449,6 +452,16 @@ class Player(Core.Entity):
             if not visited:
                 self.get_window().show_text(target.generate_description())
                 target.set_state("visited", 1)
+
+        if target == self:
+            message = "${core.player.beginning} " + subject.get_indefinite_article() + " "
+            message += subject.objectName() + " ${core.player.itemReceivedEnding}"
+            self.get_window().show_text(message)
+
+        if parent == self and target is None:
+            message = "${core.player.beginning} " + subject.get_indefinite_article() + " "
+            message += subject.objectName() + " ${core.player.itemLostEnding}"
+            self.get_window().show_text(message)
 
     def generate_inventory_list(self, empty_note=False):
         """
