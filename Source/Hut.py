@@ -146,6 +146,7 @@ class Toast(Core.Entity):
             return other_entity.on_used(user, self)
         elif other_entity is None and self.get_state("coated") == 1:
             self.transfer(None)
+            user.set_state("fed up", 1)
             return True
         else:
             return False

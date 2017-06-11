@@ -50,10 +50,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <connection name="${game.places.hut.name}"/>
         <connection name="${game.places.roadToIvy.name}"/>
     </Place>
-    <Place name="${game.places.roadToIvy.name}" description="${game.places.roadToIvy.description}" gender="m">
+    <RoadToIvy name="${game.places.roadToIvy.name}" description="${game.places.roadToIvy.description}" gender="m">
         <connection name="${game.places.yard.name}"/>
         <connection name="${game.places.village.name}"/>
-    </Place>
+    </RoadToIvy>
     <Place name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
         <children>
             <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />

@@ -26,6 +26,7 @@ class Game(Source.EngineL.Core.SinglePlayerApp):
         try:
             Source.EngineL.Gameplay.register_entity_classes(self)
             Source.Hut.register_entity_classes(self)
+            Source.Roads.register_entity_classes(self)
 
             self.restore_world()
 
