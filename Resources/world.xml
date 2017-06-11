@@ -41,8 +41,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Place name="${game.places.yard.name}" description="${game.places.yard.description}" gender="m">
         <children>
             <Wood name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}" gender="n"/>
-            <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}" gender="m"/>
-            <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
+            <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}" gender="m">
+                <children>
+                    <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
+                </children>
+            </StaticEntity>
         </children>
         <connection name="${game.places.hut.name}"/>
         <connection name="${game.places.roadToIvy.name}"/>

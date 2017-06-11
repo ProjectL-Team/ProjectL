@@ -289,7 +289,7 @@ class Entity(QObject):
             if self.is_place:
                 inventory_list = string_key_root + "placeBeginning} "
             else:
-                inventory_list = self.get_pronoun() + " "
+                inventory_list = self.get_pronoun(True) + " "
                 inventory_list += string_key_root + "entityBeginning} "
             inventory_list += children[0].get_effective_article() + " "
             inventory_list += "<b>" + children[0].objectName() + "</b>"
