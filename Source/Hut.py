@@ -103,7 +103,7 @@ class Oven(Core.StaticEntity):
         changed.
         """
         if self.get_state("on") == 1:
-            return "DER OFEN IST AN"
+            return "Ah endlich ist der Ofen an. Der Raum füllt sich direkt mit der angenehmen Wärme."
         else:
             return self.description
 
@@ -156,9 +156,9 @@ class Toast(Core.Entity):
         changed.
         """
         if self.get_state("coated") == 0 and self.get_state("toasted") == 1:
-            return "DAS TOAST IST LECKER GETOASTED"
+            return "Der Toast ist jetzt getoasted. So ganz ohne Aufstrich will ich ihn aber nicht essen."
         elif self.get_state("coated") == 1 and self.get_state("toasted") == 1:
-            return "DAS TOAST IST BESTRICHEN"
+            return "Perfekt. Mein Toast hat jetzt eine rot-glänzende Marmeladenschicht drauf. Jetzt muss ich ihn nur noch essen."
         else:
             return self.description
 
