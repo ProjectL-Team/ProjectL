@@ -289,7 +289,7 @@ class Entity(QObject):
             if self.is_place:
                 inventory_list = string_key_root + "placeBeginning} "
             else:
-                inventory_list = self.get_pronoun() + " "
+                inventory_list = self.get_pronoun(True) + " "
                 inventory_list += string_key_root + "entityBeginning} "
             inventory_list += children[0].get_effective_article() + " "
             inventory_list += "<b>" + children[0].objectName() + "</b>"
@@ -540,7 +540,10 @@ class StaticEntity(Entity):
         This constant, overriden method always returns False, since this is a static entity which
         won't move.
         """
-        return False
+        if targeted_parent is None:
+            return True
+        else:
+            return False
 
 class Place(Entity):
     """
@@ -561,7 +564,9 @@ class Place(Entity):
         search. If not, it uses the default behaviour. Returns True if the transfer is okay, False
         if not.
         """
-        if target.is_place:
+        if target is None:
+            return True
+        elif target.is_place:
             if not subject in self.children():
                 return False
             place_queue = deque()

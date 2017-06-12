@@ -316,7 +316,7 @@ class GameplayParser(QObject):
         """
         target_name = self.get_argument_as_string()
         place = self.parent().parent()
-        target = place.findChild(Core.Entity, target_name, Qt.FindDirectChildrenOnly)
+        target = place.findChild(Core.Entity, target_name)
         if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
         elif not target.transfer(self.parent()):
