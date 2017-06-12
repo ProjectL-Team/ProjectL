@@ -61,6 +61,7 @@ class Jam(Core.Entity):
         if isinstance(other_entity, Toast):
             if other_entity.get_state("toasted") == 1:
                 other_entity.set_state("coated", 1)
+                user.get_window().show_text(other_entity.get_raw_description())
                 self.transfer(None)
                 return True
             else:
@@ -85,12 +86,14 @@ class Oven(Core.StaticEntity):
             if self.get_state("on") == 0:
                 self.set_state("on", 1)
                 other_entity.transfer(None)
+                user.get_window().show_text(self.get_raw_description())
                 return True
             else:
                 return False
         elif isinstance(other_entity, Toast):
             if other_entity.get_state("toasted") == 0 and self.get_state("on") == 1:
                 other_entity.set_state("toasted", 1)
+                user.get_window().show_text(other_entity.get_raw_description())
                 return True
             else:
                 return False
@@ -103,7 +106,8 @@ class Oven(Core.StaticEntity):
         changed.
         """
         if self.get_state("on") == 1:
-            return "Ah endlich ist der Ofen an. Der Raum füllt sich direkt mit der angenehmen Wärme."
+            txt = "Ah endlich ist der Ofen an. Der Raum füllt sich direkt mit der angenehmen Wärme."
+            return txt
         else:
             return self.description
 
@@ -147,6 +151,7 @@ class Toast(Core.Entity):
         elif other_entity is None and self.get_state("coated") == 1:
             self.transfer(None)
             user.set_state("fed up", 1)
+            user.get_window().show_text("ICH BIN JETZT SATT.")
             return True
         else:
             return False
@@ -157,9 +162,11 @@ class Toast(Core.Entity):
         changed.
         """
         if self.get_state("coated") == 0 and self.get_state("toasted") == 1:
-            return "Der Toast ist jetzt getoasted. So ganz ohne Aufstrich will ich ihn aber nicht essen."
+            return "Der Toast ist jetzt getoasted.\
+                So ganz ohne Aufstrich will ich ihn aber nicht essen."
         elif self.get_state("coated") == 1 and self.get_state("toasted") == 1:
-            return "Perfekt. Mein Toast hat jetzt eine rot-glänzende Marmeladenschicht drauf. Jetzt muss ich ihn nur noch essen."
+            return "Perfekt. Mein Toast hat jetzt eine rot-glänzende Marmeladenschicht drauf.\
+                Jetzt muss ich ihn nur noch essen."
         else:
             return self.description
 
@@ -178,6 +185,7 @@ class HoleInRoof(Core.StaticEntity):
         if isinstance(other_entity, Stopper):
             self.transfer(None)
             other_entity.transfer(None)
+            user.get_window().show_text("DAS LOCH IST GESTOPFT.")
             return True
         else:
             return False
