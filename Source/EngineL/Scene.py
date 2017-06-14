@@ -17,7 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from xml.etree import ElementTree
-from PyQt5.QtCore import QObject, QCoreApplication, QEvent, pyqtSignal
+from PyQt5.QtCore import Qt, QObject, QCoreApplication, QEvent, pyqtSignal
+from Source.EngineL import Core
 
 class XMLScene(QObject):
     """
@@ -29,14 +30,10 @@ class XMLScene(QObject):
 
         self.player = player
 
-        self.elements = [ClearCommandRowElement(self)]
-
         self.xml_tree = ElementTree.parse("Resources/" + scene_name + ".xml")
 
-        for xml_element in list(self.xml_tree.getroot()):
-            previous_element = self.elements[-1]
-            self.elements.append(self.identify_element(xml_element))
-            previous_element.end.connect(self.elements[-1].play)
+        self.elements = [ClearCommandRowElement(self)]
+        self.elements = generate_scene_element_path(self, self.xml_tree.getroot(), self.elements)
 
         previous_element = self.elements[-1]
         self.elements.append(ShowCommandLineElement(self))
@@ -54,6 +51,8 @@ class XMLScene(QObject):
             return DelayElement(self, xml_element)
         elif xml_element.tag == "choice":
             return ChoiceElement(self, xml_element)
+        elif xml_element.tag == "transfer":
+            return TransferElement(self, xml_element)
         else:
             error_message = "Illegal scene element " + xml_element.tag + "! The game was saved!"
             QCoreApplication.instance().crash(error_message, True)
@@ -69,6 +68,25 @@ class XMLScene(QObject):
         This non-constant method starts the scene.
         """
         self.elements[0].play()
+
+def generate_scene_element_path(scene, xml_root, path=None):
+    """
+    This function generates and returns a scene element path based upon an xml_root element for a
+    scene. If you want to, you can give it a partly built path which will be extended.
+    """
+    if path is None:
+        path = []
+    for xml_element in list(xml_root):
+        if len(path) > 0:
+            previous_element = path[-1]
+        else:
+            previous_element = None
+
+        path.append(scene.identify_element(xml_element))
+
+        if previous_element is not None:
+            previous_element.end.connect(path[-1].play)
+    return path
 
 class SceneElement(QObject):
     """
@@ -167,6 +185,61 @@ class DelayElement(SceneElement):
             return True
         return QObject.event(self, event)
 
+class TransferElement(SceneElement):
+    """
+    This element transfers a subject to a target if it's possible.
+    """
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene)
+        self.subject_name = xml_element.get("subject", str())
+        self.target_name = xml_element.get("target", str())
+
+        no_subject_root = xml_element.find("noSubject")
+        if no_subject_root is not None:
+            self.no_subject_path = generate_scene_element_path(self.parent(), no_subject_root)
+        else:
+            self.no_subject_path = []
+
+        no_target_root = xml_element.find("noTarget")
+        if no_target_root is not None:
+            self.no_target_path = generate_scene_element_path(self.parent(), no_target_root)
+        else:
+            self.no_target_path = []
+
+        no_transfer_root = xml_element.find("noTransfer")
+        if no_transfer_root is not None:
+            self.no_transfer_path = generate_scene_element_path(self.parent(), no_transfer_root)
+        else:
+            self.no_transfer_path = []
+
+    def play(self):
+        app = QCoreApplication.instance()
+
+        subject = app.findChild(Core.Entity, self.subject_name, Qt.FindChildrenRecursively)
+        if subject is None:
+            if len(self.no_subject_path) > 0:
+                self.no_subject_path[0].play()
+            else:
+                self.end.emit()
+                return
+
+        if self.target_name == "None":
+            target = None
+        else:
+            target = app.findChild(Core.Entity, self.target_name, Qt.FindChildrenRecursively)
+            if target is None:
+                if len(self.no_target_path) > 0:
+                    self.no_target_path[0].play()
+                else:
+                    self.end.emit()
+                    return
+
+        if not subject.transfer(target):
+            if len(self.no_transfer_path) > 0:
+                self.no_subject_path[0].play()
+
+        self.end.emit()
+
 class ChoiceElement(SceneElement):
     """
     This scene element gives the player a choice on how to proced in the dialogue.
@@ -181,17 +254,7 @@ class ChoiceElement(SceneElement):
 
         for xml_option in xml_choice_root.findall("option"):
             self.option_texts.append(xml_option.get("text", str()))
-            path = []
-            for xml_option_element in list(xml_option):
-                if len(path) > 0:
-                    previous_element = path[-1]
-                else:
-                    previous_element = None
-
-                path.append(self.parent().identify_element(xml_option_element))
-
-                if previous_element is not None:
-                    previous_element.end.connect(path[-1].play)
+            path = generate_scene_element_path(self.parent(), xml_option)
             path[-1].end.connect(self.end)
             self.option_paths.append(path)
 
@@ -220,4 +283,5 @@ class ChoiceElement(SceneElement):
         """
         text = self.option_texts[self.down_button_index]
         self.parent().get_player().get_window().show_text(text)
+        self.parent().get_player().get_window().clear_command_row()
         self.option_paths[self.down_button_index][0].play()
