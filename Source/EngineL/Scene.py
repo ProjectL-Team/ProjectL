@@ -1,4 +1,3 @@
-# coding=UTF-8
 """
 The Scene module contains everything you need to create scenes (cutscenes and dialogues).
 
@@ -17,127 +16,94 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from PyQt5.QtCore import QObject, QCoreApplication, QEvent, pyqtSignal
-from Source.EngineL import Core, Gameplay
+from xml.etree import ElementTree
+from PyQt5.QtCore import QObject, QEvent, pyqtSignal
 
-class Scene(QObject):
+class XMLScene(QObject):
     """
-    This is the base class for scenes.
+    This is the base class for scenes designed in XML
     """
-    def __init__(self, parent=None):
-        QObject.__init__(self, parent)
-        player_name = Core.get_res_man().get_string("core.player.name")
-        self.player = QCoreApplication.instance().findChild(Gameplay.Player, player_name)
-        if self.player is None:
-            raise Exception("Could not find the player!")
-        self.window = self.player.get_window()
+
+    def __init__(self, scene_name, player):
+        QObject.__init__(self, player)
+
+        self.player = player
+
+        self.elements = [ClearCommandRowElement(self)]
+
+        self.xml_tree = ElementTree.parse("Resources/" + scene_name + ".xml")
+
+        for xml_element in list(self.xml_tree.getroot()):
+            previous_element = self.elements[-1]
+            if xml_element.tag == "text":
+                self.elements.append(TextElement(self, xml_element))
+            elif xml_element.tag == "delay":
+                self.elements.append(DelayElement(self, xml_element))
+            else:
+                raise Exception()
+            previous_element.end.connect(self.elements[-1].play)
+
+        previous_element = self.elements[-1]
+        self.elements.append(ShowCommandLineElement(self))
+        previous_element.end.connect(self.elements[-1].play)
+
+    def get_player(self):
+        """
+        This constant method returns our player.
+        """
+        return self.player
 
     def play(self):
         """
-        This abstract method starts the scene. Subclasses should create all elements here and start
-        the first one.
+        This non-constant method starts the scene.
         """
-        raise NotImplementedError
-
-    def destruct(self):
-        """
-        This non-constant method destructs the scene and all of it's elements.
-        """
-        for child in self.children():
-            try:
-                child.end.disconnect()
-            except TypeError:
-                pass
-
-            child.setParent(None)
-        self.setParent(None)
+        self.elements[0].play()
 
 class SceneElement(QObject):
     """
     Abstract base class for scene elements.
     """
-    def __init__(self, parent=None, player=None, window=None, awaited_end=-1):
-        QObject.__init__(self, parent)
-        self.player = player
-        self.window = window
-        self.awaited_end = awaited_end
+    def __init__(self, scene):
+        QObject.__init__(self, scene)
 
-    def set_player(self, player):
-        """
-        This non-constant method sets our player
-        """
-        self.player = player
-
-    def get_player(self):
-        """
-        This constant method returns our player
-        """
-        return self.player
-
-    def set_window(self, window):
-        """
-        This non-constant method sets our window
-        """
-        self.window = window
-
-    def get_window(self):
-        """
-        This constant method returns our window
-        """
-        return self.window
-
-    def set_awaited_end(self, awaited_end):
-        """
-        This non-constant method sets our awaited end
-        """
-        self.awaited_end = awaited_end
-
-    def get_awaited_end(self):
-        """
-        This constant method returns our awaited end
-        """
-        return self.awaited_end
-
-    def play(self, end_number):
+    def play(self):
         """
         Starts the scene element's action. Subclasses need to override it.
         """
         raise NotImplementedError
 
-    end = pyqtSignal(int)
+    end = pyqtSignal()
 
 class ClearCommandRowElement(SceneElement):
     """
     This scene element removes all widgets from the command row.
     """
-    def __init__(self, parent=None, player=None, window=None, awaited_end=-1):
-        SceneElement.__init__(self, parent, player, window, awaited_end)
+    def __init__(self, scene):
+        SceneElement.__init__(self, scene)
 
-    def play(self, end_number):
-        if end_number == self.awaited_end:
-            self.window.clear_command_row()
-            self.end.emit(0)
+    def play(self):
+        self.parent().get_player().get_window().clear_command_row()
+        self.end.emit()
 
 class ShowCommandLineElement(SceneElement):
     """
     This scene element clears the command row and adds the command line again.
     """
-    def __init__(self, parent=None, player=None, window=None, awaited_end=-1):
-        SceneElement.__init__(self, parent, player, window, awaited_end)
+    def __init__(self, scene):
+        SceneElement.__init__(self, scene)
 
-    def play(self, end_number):
-        if end_number == self.awaited_end:
-            self.window.clear_command_row()
-            self.window.add_command_line()
-            self.end.emit(0)
+    def play(self):
+        self.parent().get_player().get_window().clear_command_row()
+        self.parent().get_player().get_window().add_command_line()
+        self.end.emit()
 
 class TextElement(SceneElement):
     """
     A scene element that prints a text when it is played.
     """
-    def __init__(self, text=str(), parent=None, player=None, window=None, awaited_end=-1):
-        SceneElement.__init__(self, parent, player, window, awaited_end)
-        self.text = text
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene)
+        self.text = xml_element.text
 
     def set_text(self, text):
         """
@@ -151,19 +117,18 @@ class TextElement(SceneElement):
         """
         return self.text
 
-    def play(self, end_number):
-        if end_number == self.awaited_end:
-            self.window.show_text(self.text)
-            self.end.emit(0)
+    def play(self):
+        self.parent().get_player().get_window().show_text(self.text)
+        self.end.emit()
 
 class DelayElement(SceneElement):
     """
     This scene element waits for a predefined amount of time and fires it's end_0 when the time is
     over.
     """
-    def __init__(self, parent=None, player=None, window=None, awaited_end=-1, time=0):
-        SceneElement.__init__(self, parent, player, window, awaited_end)
-        self.time = time
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene)
+        self.time = int(xml_element.get("time"))
         self.timer_id = -1
 
     def set_time(self, time):
@@ -178,9 +143,8 @@ class DelayElement(SceneElement):
         """
         return self.time
 
-    def play(self, end_number):
-        if end_number == self.awaited_end:
-            self.timer_id = self.startTimer(self.time)
+    def play(self):
+        self.timer_id = self.startTimer(self.time)
 
     def event(self, event):
         """
@@ -188,16 +152,16 @@ class DelayElement(SceneElement):
         """
         if event.type() == QEvent.Timer:
             self.killTimer(self.timer_id)
-            self.end.emit(0)
+            self.end.emit()
             return True
         return QObject.event(self, event)
-
+'''
 class OptionElement(SceneElement):
     """
     This scene element let's you add options the player can choose from.
     """
-    def __init__(self, parent=None, player=None, window=None, awaited_end=-1):
-        SceneElement.__init__(self, parent, player, window, awaited_end)
+    def __init__(self, scene, awaited_end):
+        SceneElement.__init__(self, scene, awaited_end)
         self.options = []
         self.buttons = []
         self.down_button_index = -1
@@ -234,7 +198,6 @@ class OptionElement(SceneElement):
         This non-constant method prints the chosen option text and emits our end signal.
         """
         text = self.options[self.down_button_index]
-        text = Core.get_res_man().decode_string(text)
-        self.window.show_command(text)
+        self.parent().get_player().get_window().show_command(text)
         self.end.emit(self.down_button_index)
-
+'''

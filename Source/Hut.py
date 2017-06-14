@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
+import Source.EngineL.Scene as Scene
 
 class Sofa(Core.StaticEntity):
     """
@@ -43,6 +44,10 @@ class Sofa(Core.StaticEntity):
                 jam.transfer(user)
                 return True
         return False
+
+    def on_talk_to(self, other_entity):
+        my_scene = Scene.XMLScene("text", other_entity)
+        my_scene.play()
 
 class Jam(Core.Entity):
     """

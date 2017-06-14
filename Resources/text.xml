@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scene>
+    <text>Hallo!</text>
+    <delay time="1000" />
+    <text>Ich bin dein Sofa!</text>
+</scene>
