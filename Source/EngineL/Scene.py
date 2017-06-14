@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from xml.etree import ElementTree
-from PyQt5.QtCore import QObject, QEvent, pyqtSignal
+from PyQt5.QtCore import QObject, QCoreApplication, QEvent, pyqtSignal
 
 class XMLScene(QObject):
     """
@@ -35,17 +35,28 @@ class XMLScene(QObject):
 
         for xml_element in list(self.xml_tree.getroot()):
             previous_element = self.elements[-1]
-            if xml_element.tag == "text":
-                self.elements.append(TextElement(self, xml_element))
-            elif xml_element.tag == "delay":
-                self.elements.append(DelayElement(self, xml_element))
-            else:
-                raise Exception()
+            self.elements.append(self.identify_element(xml_element))
             previous_element.end.connect(self.elements[-1].play)
 
         previous_element = self.elements[-1]
         self.elements.append(ShowCommandLineElement(self))
         previous_element.end.connect(self.elements[-1].play)
+
+    def identify_element(self, xml_element):
+        """
+        This non-constant method identifies which scene element is meant with the xml_element and
+        returns a configured instance of it. If the scene element could not be identified, the game
+        will be saved and crashes.
+        """
+        if xml_element.tag == "text":
+            return TextElement(self, xml_element)
+        elif xml_element.tag == "delay":
+            return DelayElement(self, xml_element)
+        elif xml_element.tag == "choice":
+            return ChoiceElement(self, xml_element)
+        else:
+            error_message = "Illegal scene element " + xml_element.tag + "! The game was saved!"
+            QCoreApplication.instance().crash(error_message, True)
 
     def get_player(self):
         """
@@ -155,31 +166,41 @@ class DelayElement(SceneElement):
             self.end.emit()
             return True
         return QObject.event(self, event)
-'''
-class OptionElement(SceneElement):
+
+class ChoiceElement(SceneElement):
     """
-    This scene element let's you add options the player can choose from.
+    This scene element gives the player a choice on how to proced in the dialogue.
     """
-    def __init__(self, scene, awaited_end):
-        SceneElement.__init__(self, scene, awaited_end)
-        self.options = []
+    def __init__(self, scene, xml_choice_root):
+        SceneElement.__init__(self, scene)
+
+        self.option_texts = []
+        self.option_paths = []
         self.buttons = []
         self.down_button_index = -1
 
-    def add_option(self, option_text):
-        """
-        This non-constant method adds one option the player can choose. The option_text may contain
-        unresolved resource string keys, but no HTML tags.
-        """
-        self.options.append(option_text)
+        for xml_option in xml_choice_root.findall("option"):
+            self.option_texts.append(xml_option.get("text", str()))
+            path = []
+            for xml_option_element in list(xml_option):
+                if len(path) > 0:
+                    previous_element = path[-1]
+                else:
+                    previous_element = None
 
-    def play(self, end_number):
-        if end_number == self.awaited_end:
-            if len(self.options) == 0:
-                self.end.emit(0)
-                return
-            for text in self.options:
-                new_button = self.window.add_option_button(text)
+                path.append(self.parent().identify_element(xml_option_element))
+
+                if previous_element is not None:
+                    previous_element.end.connect(path[-1].play)
+            path[-1].end.connect(self.end)
+            self.option_paths.append(path)
+
+    def play(self):
+        if len(self.option_texts) == 0:
+            self.end.emit()
+        else:
+            for text in self.option_texts:
+                new_button = self.parent().get_player().get_window().add_option_button(text)
                 new_button.pressed.connect(self.button_pressed)
                 self.buttons.append(new_button)
 
@@ -197,7 +218,6 @@ class OptionElement(SceneElement):
         """
         This non-constant method prints the chosen option text and emits our end signal.
         """
-        text = self.options[self.down_button_index]
-        self.parent().get_player().get_window().show_command(text)
-        self.end.emit(self.down_button_index)
-'''
+        text = self.option_texts[self.down_button_index]
+        self.parent().get_player().get_window().show_text(text)
+        self.option_paths[self.down_button_index][0].play()

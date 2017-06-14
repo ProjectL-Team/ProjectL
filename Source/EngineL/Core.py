@@ -729,11 +729,13 @@ class SinglePlayerApp(QApplication):
         else:
             self.save_enabled = True
 
-    def crash(self, error_text):
+    def crash(self, error_text, save_world=False):
         """
         This constant function opens an QErrorMessage with the given error_text and forces python to
         exit the program. Only call this if a fatal error has happened.
         """
+        if save_world:
+            self.save_world()
         error_message = QErrorMessage()
         error_message.setModal(True)
         error_message.showMessage(error_text)

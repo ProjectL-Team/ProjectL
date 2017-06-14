@@ -3,4 +3,13 @@
     <text>Hallo!</text>
     <delay time="1000" />
     <text>Ich bin dein Sofa!</text>
+    <choice>
+        <option text="Seit wann kannst du reden?">
+            <text>Seit wir ein neues Szenen-System brauchen.</text>
+        </option>
+        <option text="Hallo! Wie war den Tag bisher?">
+            <text>Gut, kann mich nicht beklagen!</text>
+        </option>
+    </choice>
+    <text>Man sieht sich!</text>
 </scene>
