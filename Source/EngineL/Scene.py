@@ -30,7 +30,10 @@ class XMLScene(QObject):
 
         self.player = player
 
-        self.xml_tree = ElementTree.parse("Resources/" + scene_name + ".xml")
+        try:
+            self.xml_tree = ElementTree.parse("Resources/" + scene_name + ".xml")
+        except ElementTree.ParseError as error:
+            QCoreApplication.instance().crash(str(error))
 
         self.elements = [ClearCommandRowElement(self)]
         self.elements = generate_scene_element_path(self, self.xml_tree.getroot(), self.elements)
@@ -53,6 +56,8 @@ class XMLScene(QObject):
             return ChoiceElement(self, xml_element)
         elif xml_element.tag == "transfer":
             return TransferElement(self, xml_element)
+        elif xml_element.tag == "changeState":
+            return ChangeStateElement(self, xml_element)
         else:
             error_message = "Illegal scene element " + xml_element.tag + "! The game was saved!"
             QCoreApplication.instance().crash(error_message, True)
@@ -237,6 +242,37 @@ class TransferElement(SceneElement):
         if not subject.transfer(target):
             if len(self.no_transfer_path) > 0:
                 self.no_subject_path[0].play()
+
+        self.end.emit()
+
+class ChangeStateElement(SceneElement):
+    """
+    This scene element changes an entitie's state to a given value.
+    """
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene)
+        self.subject_name = xml_element.get("subject", str())
+        self.state = xml_element.get("state", str())
+        self.value = int(xml_element.get("value", str()))
+
+        no_subject_root = xml_element.find("noSubject")
+        if no_subject_root is not None:
+            self.no_subject_path = generate_scene_element_path(self.parent(), no_subject_root)
+        else:
+            self.no_subject_path = []
+
+    def play(self):
+        app = QCoreApplication.instance()
+
+        subject = app.findChild(Core.Entity, self.subject_name, Qt.FindChildrenRecursively)
+        if subject is None:
+            if len(self.no_subject_path) > 0:
+                self.no_subject_path[0].play()
+            else:
+                self.end.emit()
+                return
+
+        subject.set_state(self.state, self.value)
 
         self.end.emit()
 
