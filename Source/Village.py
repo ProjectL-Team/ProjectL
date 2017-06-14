@@ -24,14 +24,23 @@ class GerritsHouse(Core.StaticEntity):
     """
     This is the house of Gerrit Alt, Ivy's mentor.
     """
-    def __init__(self, parent="None"):
+    def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
 
     def on_talk_to(self, other_entity):
         Scene.XMLScene("Gerrit0", other_entity).play()
 
+class WindTurbine(Core.Entity):
+    """
+    A wind turbine, formerly the mysterious find.
+    """
+    def __init__(self, parent=None):
+        Core.Entity.__init__(self, parent)
+        self.setObjectName("WINDRAD")
+        self.description = "EIN WINDRAD"
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([GerritsHouse])
+    app.register_entity_classes([GerritsHouse, WindTurbine])

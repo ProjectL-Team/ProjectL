@@ -35,11 +35,11 @@ class XMLScene(QObject):
         except (FileNotFoundError, ElementTree.ParseError) as error:
             QCoreApplication.instance().crash(str(error))
 
-        self.elements = [ClearCommandRowElement(self)]
+        self.elements = [ClearCommandRowElement(self, None)]
         self.elements = generate_scene_element_path(self, self.xml_tree.getroot(), self.elements)
 
         previous_element = self.elements[-1]
-        self.elements.append(ShowCommandLineElement(self))
+        self.elements.append(ShowCommandLineElement(self, None))
         previous_element.end.connect(self.elements[-1].play)
         self.elements[-1].end.connect(self.destruct)
 
@@ -59,6 +59,8 @@ class XMLScene(QObject):
             return TransferElement(self, xml_element)
         elif xml_element.tag == "changeState":
             return ChangeStateElement(self, xml_element)
+        elif xml_element.tag == "spawn":
+            return SpawnElement(self, xml_element)
         else:
             error_message = "Illegal scene element " + xml_element.tag + "! The game was saved!"
             QCoreApplication.instance().crash(error_message, True)
@@ -104,8 +106,29 @@ class SceneElement(QObject):
     """
     Abstract base class for scene elements.
     """
-    def __init__(self, scene):
+    def __init__(self, scene, xml_element):
         QObject.__init__(self, scene)
+        self.xml_element = xml_element
+        self.paths = dict()
+
+    def create_element_path(self, path_name):
+        """
+        This non-constant method adds a new element path we can branch off to. The path_name is the
+        tag of the XML sub-element which contains all of our path's elements.
+        """
+        root = self.xml_element.find(path_name)
+        if root is not None:
+            self.paths[path_name] = generate_scene_element_path(self.parent(), root)
+            self.paths[path_name][-1].end.connect(self.end)
+
+    def start_path(self, path_name):
+        """
+        This non-constant method starts the path with the given name.
+        """
+        if self.paths.get(path_name) is not None:
+            self.paths[path_name][0].play()
+        else:
+            self.end.emit()
 
     def play(self):
         """
@@ -119,8 +142,8 @@ class ClearCommandRowElement(SceneElement):
     """
     This scene element removes all widgets from the command row.
     """
-    def __init__(self, scene):
-        SceneElement.__init__(self, scene)
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene, xml_element)
 
     def play(self):
         self.parent().get_player().get_window().clear_command_row()
@@ -130,8 +153,8 @@ class ShowCommandLineElement(SceneElement):
     """
     This scene element clears the command row and adds the command line again.
     """
-    def __init__(self, scene):
-        SceneElement.__init__(self, scene)
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene, xml_element)
 
     def play(self):
         self.parent().get_player().get_window().clear_command_row()
@@ -143,7 +166,7 @@ class TextElement(SceneElement):
     A scene element that prints a text when it is played.
     """
     def __init__(self, scene, xml_element):
-        SceneElement.__init__(self, scene)
+        SceneElement.__init__(self, scene, xml_element)
         self.text = xml_element.text
 
     def set_text(self, text):
@@ -168,7 +191,7 @@ class DelayElement(SceneElement):
     over.
     """
     def __init__(self, scene, xml_element):
-        SceneElement.__init__(self, scene)
+        SceneElement.__init__(self, scene, xml_element)
         self.time = int(xml_element.get("time"))
         self.timer_id = -1
 
@@ -202,53 +225,61 @@ class TransferElement(SceneElement):
     This element transfers a subject to a target if it's possible.
     """
     def __init__(self, scene, xml_element):
-        SceneElement.__init__(self, scene)
+        SceneElement.__init__(self, scene, xml_element)
         self.subject_name = xml_element.get("subject", str())
         self.target_name = xml_element.get("target", str())
 
-        no_subject_root = xml_element.find("noSubject")
-        if no_subject_root is not None:
-            self.no_subject_path = generate_scene_element_path(self.parent(), no_subject_root)
-        else:
-            self.no_subject_path = []
-
-        no_target_root = xml_element.find("noTarget")
-        if no_target_root is not None:
-            self.no_target_path = generate_scene_element_path(self.parent(), no_target_root)
-        else:
-            self.no_target_path = []
-
-        no_transfer_root = xml_element.find("noTransfer")
-        if no_transfer_root is not None:
-            self.no_transfer_path = generate_scene_element_path(self.parent(), no_transfer_root)
-        else:
-            self.no_transfer_path = []
+        self.create_element_path("noSubject")
+        self.create_element_path("noTarget")
+        self.create_element_path("noTransfer")
 
     def play(self):
         app = QCoreApplication.instance()
 
         subject = app.findChild(Core.Entity, self.subject_name, Qt.FindChildrenRecursively)
         if subject is None:
-            if len(self.no_subject_path) > 0:
-                self.no_subject_path[0].play()
-            else:
-                self.end.emit()
-                return
+            self.start_path("noSubject")
+            return
 
         if self.target_name == "None":
             target = None
         else:
             target = app.findChild(Core.Entity, self.target_name, Qt.FindChildrenRecursively)
             if target is None:
-                if len(self.no_target_path) > 0:
-                    self.no_target_path[0].play()
-                else:
-                    self.end.emit()
-                    return
+                self.start_path("noTarget")
+                return
 
         if not subject.transfer(target):
-            if len(self.no_transfer_path) > 0:
-                self.no_subject_path[0].play()
+            self.start_path("noTransfer")
+            return
+
+        self.end.emit()
+
+class SpawnElement(SceneElement):
+    """
+    This scene element spawns a new entity.
+    """
+    def __init__(self, scene, xml_element):
+        SceneElement.__init__(self, scene, xml_element)
+        self.classname = xml_element.get("class", str())
+        self.targetname = xml_element.get("target", str())
+
+        self.create_element_path("noTarget")
+
+    def play(self):
+        app = QCoreApplication.instance()
+
+        entity_class = app.lookup_entity_class(self.classname)
+        if entity_class is None:
+            app.crash("Invalid Entity class " + self.classname + "!", True)
+
+        target = app.findChild(Core.Entity, self.targetname, Qt.FindChildrenRecursively)
+        if target is None:
+            self.start_path("noTarget")
+            return
+
+        entity = entity_class()
+        entity.transfer(target)
 
         self.end.emit()
 
@@ -257,27 +288,20 @@ class ChangeStateElement(SceneElement):
     This scene element changes an entitie's state to a given value.
     """
     def __init__(self, scene, xml_element):
-        SceneElement.__init__(self, scene)
+        SceneElement.__init__(self, scene, xml_element)
         self.subject_name = xml_element.get("subject", str())
         self.state = xml_element.get("state", str())
         self.value = int(xml_element.get("value", str()))
 
-        no_subject_root = xml_element.find("noSubject")
-        if no_subject_root is not None:
-            self.no_subject_path = generate_scene_element_path(self.parent(), no_subject_root)
-        else:
-            self.no_subject_path = []
+        self.create_element_path("noSubject")
 
     def play(self):
         app = QCoreApplication.instance()
 
         subject = app.findChild(Core.Entity, self.subject_name, Qt.FindChildrenRecursively)
         if subject is None:
-            if len(self.no_subject_path) > 0:
-                self.no_subject_path[0].play()
-            else:
-                self.end.emit()
-                return
+            self.start_path("noSubject")
+            return
 
         subject.set_state(self.state, self.value)
 
@@ -288,7 +312,7 @@ class ChoiceElement(SceneElement):
     This scene element gives the player a choice on how to proced in the dialogue.
     """
     def __init__(self, scene, xml_choice_root):
-        SceneElement.__init__(self, scene)
+        SceneElement.__init__(self, scene, xml_choice_root)
 
         self.option_texts = []
         self.option_paths = []
