@@ -20,3 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import Source.EngineL
 import Source.Hut
 import Source.Roads
+import Source.Village
+
+class Game(Source.EngineL.Core.SinglePlayerApp):
+    """
+    EngineL Game Class
+    """
+    def __init__(self, argv):
+        Source.EngineL.Core.SinglePlayerApp.__init__(self, argv)
+
+        try:
+            Source.EngineL.Gameplay.register_entity_classes(self)
+            Source.Hut.register_entity_classes(self)
+            Source.Roads.register_entity_classes(self)
+            Source.Village.register_entity_classes(self)
+
+            self.restore_world()
+
+            self.connect_places()
+        except Exception as err:
+            self.crash(str(err))
+
+        for child in self.children():
+            if issubclass(child.__class__, Source.EngineL.Core.Entity):
+                child.on_game_launched()

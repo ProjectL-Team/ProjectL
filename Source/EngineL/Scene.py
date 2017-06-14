@@ -31,8 +31,8 @@ class XMLScene(QObject):
         self.player = player
 
         try:
-            self.xml_tree = ElementTree.parse("Resources/" + scene_name + ".xml")
-        except ElementTree.ParseError as error:
+            self.xml_tree = ElementTree.parse("Resources/Scenes/" + scene_name + ".xml")
+        except (FileNotFoundError, ElementTree.ParseError) as error:
             QCoreApplication.instance().crash(str(error))
 
         self.elements = [ClearCommandRowElement(self)]
@@ -41,6 +41,7 @@ class XMLScene(QObject):
         previous_element = self.elements[-1]
         self.elements.append(ShowCommandLineElement(self))
         previous_element.end.connect(self.elements[-1].play)
+        self.elements[-1].end.connect(self.destruct)
 
     def identify_element(self, xml_element):
         """
@@ -73,6 +74,12 @@ class XMLScene(QObject):
         This non-constant method starts the scene.
         """
         self.elements[0].play()
+
+    def destruct(self):
+        """
+        This non-constant method deletes ourselves from the game.
+        """
+        self.setParent(None)
 
 def generate_scene_element_path(scene, xml_root, path=None):
     """

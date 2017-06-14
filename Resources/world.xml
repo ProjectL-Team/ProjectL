@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Place name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
         <children>
             <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />
-            <StaticEntity name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
+            <GerritsHouse name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
             <StaticEntity name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
             <StaticEntity name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
             <StaticEntity name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />

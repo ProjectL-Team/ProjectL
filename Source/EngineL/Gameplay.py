@@ -402,7 +402,7 @@ class GameplayParser(QObject):
         target_name = self.get_argument_as_string()
 
         if not self.parent().talk_to(target_name):
-            self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+            self.window.show_text("${core.gameplayParser.genericError}")
 
 class Player(Core.Entity):
     """
