@@ -20,11 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <safe>
     <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}" gender="m">
         <children>
-            <Player>
-                <children>
-                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
-                </children>
-            </Player>
             <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
             <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
             <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
@@ -65,16 +60,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <StaticEntity name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
             <StaticEntity name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
             <StaticEntity name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
+
+            <Player>
+                <children>
+                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
+                </children>
+            </Player>
         </children>
         <connection name="${game.places.roadToIvy.name}"/>
         <connection name="${game.places.roadToHabour.name}"/>
         <connection name="${game.places.field.name}"/>
         <connection name="${game.places.westSlope.name}"/>
     </Place>
-    <Place name="${game.places.roadToHabour.name}" description="${game.places.roadToHabour.description}" gender="m">
+    <RoadToHabour name="${game.places.roadToHabour.name}" description="${game.places.roadToHabour.description}" gender="m">
         <connection name="${game.places.village.name}"/>
         <connection name="${game.places.habour.name}"/>
-    </Place>
+    </RoadToHabour>
     <Place name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
         <children>
             <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />

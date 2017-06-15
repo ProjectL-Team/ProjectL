@@ -128,7 +128,8 @@ class SceneElement(QObject):
         if self.paths.get(path_name) is not None:
             self.paths[path_name][0].play()
         else:
-            self.end.emit()
+            text = "Error while playing a scene: An operation could not be executed!"
+            QCoreApplication.instance().crash(text)
 
     def play(self):
         """
