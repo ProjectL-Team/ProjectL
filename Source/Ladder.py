@@ -1,5 +1,5 @@
 """
-This module contains all roads in the game since they belong to any other module.
+This module contains everything required to craft the ladder (and the ladder itself, of course).
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -87,7 +87,7 @@ class LadderTool(Core.Entity):
         self.setObjectName("WERKZEUG")
         self.description = "MIT DIESEM WERKZEUG KANN MAN DIE LEITER REPARIEREN"
         self.gender = "n"
-    
+
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, LooseLadder):
             return other_entity.on_used(user, self)

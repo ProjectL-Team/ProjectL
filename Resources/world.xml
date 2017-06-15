@@ -123,7 +123,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </Place>
     <Place name="${game.places.eastSlope.name}" description="${game.places.eastSlope.description}" gender="m">
         <children>
-            <StaticEntity name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" />
+            <CoveredFountain name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" >
+                <children>
+                    <LadderTool />
+                </children>
+            </CoveredFountain>
         </children>
         <connection name="${game.places.mountainTop.name}"/>
     </Place>

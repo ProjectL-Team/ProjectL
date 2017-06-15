@@ -22,6 +22,7 @@ import Source.Hut
 import Source.Roads
 import Source.Village
 import Source.Ladder
+import Source.Mountain
 
 class Game(Source.EngineL.Core.SinglePlayerApp):
     """
@@ -36,6 +37,7 @@ class Game(Source.EngineL.Core.SinglePlayerApp):
             Source.Roads.register_entity_classes(self)
             Source.Village.register_entity_classes(self)
             Source.Ladder.register_entity_classes(self)
+            Source.Mountain.register_entity_classes(self)
 
             self.restore_world()
 
