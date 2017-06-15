@@ -17,8 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
     <text> </text>
-    <text>Ich bin Hex!</text>
+    <text>""Ich bin Hex!"</text>
     <delay time="1500" />
+
+    <!-- Abschließende Änderungen, bitte beibehalten! -->
     <changeState subject="Ivy" state="met Hex" value="1" />
     <transfer subject="Hex" target="None" />
 </scene>
