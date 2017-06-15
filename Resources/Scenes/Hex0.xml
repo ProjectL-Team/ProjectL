@@ -1,5 +1,6 @@
-"""
-ProjectL Launch Script
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+The first dialogue with Gerrit Alt.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -13,10 +14,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
-import Source
+-->
+<scene>
+    <text> </text>
+    <text>""Ich bin Hex!"</text>
+    <delay time="1500" />
 
-if __name__ == "__main__":
-    import sys
-    GAME_INSTANCE = Source.Game(sys.argv)
-    sys.exit(GAME_INSTANCE.exec_())
+    <!-- Abschließende Änderungen, bitte beibehalten! -->
+    <changeState subject="Ivy" state="met Hex" value="1" />
+    <transfer subject="Hex" target="None" />
+</scene>

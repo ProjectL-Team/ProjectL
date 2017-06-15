@@ -402,7 +402,7 @@ class GameplayParser(QObject):
         target_name = self.get_argument_as_string()
 
         if not self.parent().talk_to(target_name):
-            self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+            self.window.show_text("${core.gameplayParser.genericError}")
 
 class Player(Core.Entity):
     """
@@ -455,12 +455,12 @@ class Player(Core.Entity):
             self.get_window().show_text(target.generate_description())
 
         if target == self:
-            message = "${core.player.beginning} " + subject.get_indefinite_article() + " "
+            message = "${core.player.beginning} " + subject.get_effective_article() + " "
             message += subject.objectName() + " ${core.player.itemReceivedEnding}"
             self.get_window().show_text(message)
 
-        if parent == self and target is None:
-            message = "${core.player.beginning} " + subject.get_indefinite_article() + " "
+        if parent == self:
+            message = "${core.player.beginning} " + subject.get_effective_article() + " "
             message += subject.objectName() + " ${core.player.itemLostEnding}"
             self.get_window().show_text(message)
 

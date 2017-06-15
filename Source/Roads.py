@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
+import Source.EngineL.Scene as Scene
 
 class RoadToIvy(Core.Place):
     """
@@ -46,8 +47,37 @@ class RoadToIvy(Core.Place):
                 pass
             return False
 
+class RoadToHabour(Core.Place):
+    """
+    This is the road betwen the Habour and the village.
+    """
+    def __init__(self, parent=None):
+        Core.Place.__init__(self, parent)
+
+    def on_transfer(self, subject, parent, target):
+        """
+        This non-constant, overriden method starts the scene 'Hex0' if Ivy hadn't met her before.
+        """
+        if target == self:
+            try:
+                met_hex = bool(subject.get_state("met Hex"))
+            except KeyError:
+                met_hex = False
+
+            if not met_hex:
+                hex_entity = Core.Entity(self)
+                hex_entity.setObjectName("Hex")
+                hex_entity.set_gender("f")
+                hex_entity.show_article = True
+                hex_entity.use_definite_article = True
+
+                Core.Place.on_transfer(self, subject, parent, target)
+                Scene.XMLScene("Hex0", subject).play()
+                return
+        Core.Place.on_transfer(self, subject, parent, target)
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([RoadToIvy])
+    app.register_entity_classes([RoadToIvy, RoadToHabour])
