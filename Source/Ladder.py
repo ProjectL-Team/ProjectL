@@ -104,6 +104,12 @@ class FixedLadder(Core.Entity):
         self.description = "MIT DIESER LEITER KOMMT MAN FAST ÜBERALL HIN"
         self.gender = "f"
 
+    def on_used(self, user, other_entity=None):
+        if other_entity is not None:
+            return other_entity.on_used(user, self)
+        else:
+            return False
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.

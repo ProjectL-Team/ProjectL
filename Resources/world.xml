@@ -50,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
                 </children>
             </StaticEntity>
+            <Signpost />
         </children>
         <connection name="${game.places.hut.name}"/>
         <connection name="${game.places.roadToIvy.name}"/>
@@ -78,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Place name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
         <children>
             <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />
-            <StaticEntity name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
+            <HabourWall name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
             <StaticEntity name="${game.places.habour.landingStage.name}" description="${game.places.habour.landingStage.description}" gender="m" />
             <StaticEntity name="${game.places.habour.container.name}" description="${game.places.habour.container.description}" gender="m" />
             <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
