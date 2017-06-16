@@ -43,7 +43,7 @@ class RoadToIvy(Core.Place):
         else:
             try:
                 txt = "Ich sollte wohl vorher etwas frühstücken bevor ich ins Dorf gehe. In der \
-                Hütte ist bestimmt noch was zu essen"
+                Hütte ist bestimmt noch was zu essen."
                 subject.get_window().show_text(txt)
             except AttributeError:
                 pass

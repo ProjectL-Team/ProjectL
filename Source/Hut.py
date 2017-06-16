@@ -151,7 +151,7 @@ class Toast(Core.Entity):
         elif other_entity is None and self.get_state("coated") == 1:
             self.transfer(None)
             user.set_state("fed up", 1)
-            user.get_window().show_text("ICH BIN JETZT SATT.")
+            user.get_window().show_text("Nichts geht über ein Marmeladen-Toast am Morgen.")
             return True
         else:
             return False
