@@ -23,6 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
             <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
             <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
+            <Player>
+                <children>
+                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
+                </children>
+            </Player>
         </children>
         <state key="visited" value="1"/>
         <connection name="${game.places.hut.name}"/>
@@ -45,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
                 </children>
             </StaticEntity>
+            <Signpost />
         </children>
         <connection name="${game.places.hut.name}"/>
         <connection name="${game.places.roadToIvy.name}"/>
@@ -60,12 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <StaticEntity name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
             <StaticEntity name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
             <StaticEntity name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
-
-            <Player>
-                <children>
-                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
-                </children>
-            </Player>
         </children>
         <connection name="${game.places.roadToIvy.name}"/>
         <connection name="${game.places.roadToHabour.name}"/>
@@ -79,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Place name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
         <children>
             <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />
-            <StaticEntity name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
+            <HabourWall name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
             <StaticEntity name="${game.places.habour.landingStage.name}" description="${game.places.habour.landingStage.description}" gender="m" />
             <StaticEntity name="${game.places.habour.container.name}" description="${game.places.habour.container.description}" gender="m" />
             <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
@@ -93,9 +93,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Place name="${game.places.field.name}" description="${game.places.field.description}" gender="n">
         <children>
             <StaticEntity name="${game.places.field.bed1.name}" description="${game.places.field.bed1.description}" gender="n" />
-            <StaticEntity name="${game.places.field.bed2.name}" description="${game.places.field.bed2.description}" gender="n" />
+            <StaticEntity name="${game.places.field.bed2.name}" description="${game.places.field.bed2.description}" gender="n">
+                <children>
+                    <Rungs />
+                </children>
+            </StaticEntity>
             <StaticEntity name="${game.places.field.bed3.name}" description="${game.places.field.bed3.description}" gender="n" />
-            <StaticEntity name="${game.places.field.bed4.name}" description="${game.places.field.bed4.description}" gender="n" />
+            <StaticEntity name="${game.places.field.bed4.name}" description="${game.places.field.bed4.description}" gender="n">
+                <children>
+                    <Stringers />
+                </children>
+            </StaticEntity>
             <StaticEntity name="${game.places.field.compostBin.name}" description="${game.places.field.compostBin.description}" gender="n" />
         </children>
         <connection name="${game.places.village.name}"/>
@@ -116,7 +124,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </Place>
     <Place name="${game.places.eastSlope.name}" description="${game.places.eastSlope.description}" gender="m">
         <children>
-            <StaticEntity name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" />
+            <CoveredFountain name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" >
+                <children>
+                    <LadderTool />
+                </children>
+            </CoveredFountain>
         </children>
         <connection name="${game.places.mountainTop.name}"/>
     </Place>

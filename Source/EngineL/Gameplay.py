@@ -300,9 +300,12 @@ class GameplayParser(QObject):
         and transfering our parent, the player, to it. If it fails, it will post a message to the
         player that tells him so and nothing will be changed.
         """
-        target_name = self.get_argument_as_string()
-        app = QCoreApplication.instance()
-        target = app.findChild(Core.Entity, target_name, Qt.FindDirectChildrenOnly)
+        try:
+            target = self.parent().parent().get_connected_place(self.get_argument_as_string())
+        except LookupError:
+            self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+            return
+
         if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
         elif not self.parent().transfer(target):

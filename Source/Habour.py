@@ -1,8 +1,7 @@
 """
-All classes required by the tutorial part of ProjectL
+This module contains the entities of the habour.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
-Copyright (C) 2017 Jason "J2a0s0o0n" Becker
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,20 +17,26 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
-import Source.EngineL.Scene as Scene
+from Source.Ladder import FixedLadder
+from Source.WindTurbine import CopperCoil
 
-class GerritsHouse(Core.StaticEntity):
+class HabourWall(Core.Entity):
     """
-    This is the house of Gerrit Alt, Ivy's mentor.
+    The wall that holds the copper coil.
     """
     def __init__(self, parent=None):
-        Core.StaticEntity.__init__(self, parent)
+        Core.Entity.__init__(self, parent)
 
-    def on_talk_to(self, other_entity):
-        Scene.XMLScene("Gerrit0", other_entity).play()
+    def on_used(self, user, other_entity=None):
+        if isinstance(other_entity, FixedLadder):
+            coil = CopperCoil()
+            coil.transfer(user)
+            return True
+        else:
+            return False
 
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([GerritsHouse])
+    app.register_entity_classes([HabourWall])

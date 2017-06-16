@@ -27,5 +27,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <text>"Das ist ein altes Windrad! Damit kannst du Strom erzeugen!"</text>
     <delay time="3000" />
     <text>"..."</text>
-    <spawn class="WindTurbine" target="Ivy" />
+    <spawn class="BrokenWindTurbine" target="Ivy" />
 </scene>
