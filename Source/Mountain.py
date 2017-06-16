@@ -27,6 +27,7 @@ class CoveredFountain(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
+        self.activly_usable = True
 
     def on_transfer(self, subject, parent, target):
         """

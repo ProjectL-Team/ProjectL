@@ -26,6 +26,7 @@ class BrokenWindTurbine(Core.Entity):
         Core.Entity.__init__(self, parent)
         self.setObjectName("KAPUTTES WINDRAD")
         self.description = "EIN KAPUTTES WINDRAD"
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, CopperCoil):
@@ -47,12 +48,6 @@ class CopperCoil(Core.Entity):
         self.setObjectName("KUPFERSPULE")
         self.description = "EINE KUPFERSPULE"
 
-    def on_used(self, user, other_entity=None):
-        if other_entity is not None:
-            return other_entity.on_used(user, self)
-        else:
-            return False
-
 class WindTurbine(Core.Entity):
     """
     The fixed wind turbine.
@@ -62,12 +57,6 @@ class WindTurbine(Core.Entity):
         self.setObjectName("WINDRAD")
         self.description = "EIN WINDRAD"
 
-    def on_used(self, user, other_entity=None):
-        if other_entity is not None:
-            return other_entity.on_used(user, self)
-        else:
-            return False
-
 class Signpost(Core.StaticEntity):
     """
     An unused signpost in Ivy's yard, which will be reused as the pole of her wind turbine.
@@ -75,6 +64,7 @@ class Signpost(Core.StaticEntity):
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
         self.setObjectName("WEGWEISER")
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, WindTurbine):

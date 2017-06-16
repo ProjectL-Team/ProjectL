@@ -27,6 +27,7 @@ class Sofa(Core.StaticEntity):
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
         self.set_state("timesScanned", 0)
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         """
@@ -53,6 +54,7 @@ class Jam(Core.Entity):
         Core.Entity.__init__(self, parent)
         self.setObjectName(Core.get_res_man().get_string("game.places.hut.jam.name"))
         self.set_gender("f")
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         """
@@ -77,6 +79,7 @@ class Oven(Core.StaticEntity):
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
         self.set_state("on", 0)
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         """
@@ -120,15 +123,6 @@ class Wood(Core.Entity):
         Core.Entity.__init__(self, parent)
         self.setObjectName(Core.get_res_man().get_string("game.places.yard.wood.name"))
 
-    def on_used(self, user, other_entity=None):
-        """
-        This non-constant, overriden method does something.
-        """
-        if isinstance(other_entity, Oven):
-            return other_entity.on_used(user, self)
-        else:
-            return False
-
 class Toast(Core.Entity):
     """
     the Toast
@@ -139,6 +133,7 @@ class Toast(Core.Entity):
         self.set_state("toasted", 0)
         self.set_state("coated", 0)
         self.setObjectName(Core.get_res_man().get_string("game.places.hut.toast.name"))
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         """
@@ -176,6 +171,7 @@ class HoleInRoof(Core.StaticEntity):
     """
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         """
@@ -196,16 +192,6 @@ class Stopper(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-
-    def on_used(self, user, other_entity=None):
-        """
-        This non-constant method passes the on_used-event to the other_entity and returns it's
-        return value. If no other_entity were given, it will return False.
-        """
-        if other_entity is not None:
-            return other_entity.on_used(user, self)
-        else:
-            return False
 
 def register_entity_classes(app):
     """

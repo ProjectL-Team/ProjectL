@@ -28,6 +28,7 @@ class Rungs(Core.Entity):
         self.description = "DAS SIND MEHRERE SPROSSEN"
         self.gender = "f"
         self.show_article = False
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, Stringers):
@@ -51,12 +52,6 @@ class Stringers(Core.Entity):
         self.gender = "m"
         self.show_article = False
 
-    def on_used(self, user, other_entity=None):
-        if isinstance(other_entity, Rungs):
-            return other_entity.on_used(user, self)
-        else:
-            return False
-
 class LooseLadder(Core.Entity):
     """
     The loose, unfixed ladder.
@@ -66,6 +61,7 @@ class LooseLadder(Core.Entity):
         self.setObjectName("WACKELIGE LEITER")
         self.description = "DIESE LEITER IST WACKLIG UND MUSS REPARIERT WERDEN"
         self.gender = "f"
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, LadderTool):
@@ -88,12 +84,6 @@ class LadderTool(Core.Entity):
         self.description = "MIT DIESEM WERKZEUG KANN MAN DIE LEITER REPARIEREN"
         self.gender = "n"
 
-    def on_used(self, user, other_entity=None):
-        if isinstance(other_entity, LooseLadder):
-            return other_entity.on_used(user, self)
-        else:
-            return False
-
 class FixedLadder(Core.Entity):
     """
     The fixed ladder.
@@ -103,12 +93,6 @@ class FixedLadder(Core.Entity):
         self.setObjectName("LEITER")
         self.description = "MIT DIESER LEITER KOMMT MAN FAST ÜBERALL HIN"
         self.gender = "f"
-
-    def on_used(self, user, other_entity=None):
-        if other_entity is not None:
-            return other_entity.on_used(user, self)
-        else:
-            return False
 
 def register_entity_classes(app):
     """
