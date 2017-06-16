@@ -130,6 +130,7 @@ class Entity(QObject):
         self.gender = "n"
         self.show_article = True
         self.use_definite_article = False
+        self.activly_usable = False
 
     def transfer(self, targeted_parent):
         """
@@ -138,11 +139,16 @@ class Entity(QObject):
         afterwards.
         """
         transfer_okay = True
+        if self.parent() == targeted_parent:
+            transfer_okay = False
+
         if not self.check_transfer_as_subject(targeted_parent):
             transfer_okay = False
+
         if self.parent() is not None:
             if not self.parent().check_transfer_as_parent(self, targeted_parent):
                 transfer_okay = False
+
         if targeted_parent is not None:
             if not targeted_parent.check_transfer_as_target(self):
                 transfer_okay = False
@@ -237,14 +243,18 @@ class Entity(QObject):
         This non-constant, abstract method executes the tasks that the user abstractly does with
         ourselves and an optional other entity and returns whether this was successfull or not.
 
-        At default, it returns False since you can not do anything with ourselves if this method
-        is not overridden.
+        At default, it has two modes: If self.activly_usable is True, it will try to pass the
+        on_used to the other_entity and will return it's return value. If this did not work or
+        self.activly_usable is False, it will return False.
 
         One example on how this may be overriden in a usefull way: The user wants to combine
         ourselves with another entity to create a new one. This method would check whether the other
         entity has the required type, would add the new one and disconnect us and the other entity
         from the world tree.
         """
+        if other_entity is not None:
+            if (not self.activly_usable) and other_entity.activly_usable:
+                return other_entity.on_used(user, self)
         return False
 
     def get_raw_description(self):
@@ -527,6 +537,12 @@ class Entity(QObject):
         we want the indefinite one.
         """
         return self.use_definite_article
+    
+    def get_activly_usable(self):
+        """
+        This constant method returns True if we are activly usable and False if not.
+        """
+        return self.activly_usable
 
 class StaticEntity(Entity):
     """

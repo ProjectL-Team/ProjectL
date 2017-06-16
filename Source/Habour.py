@@ -26,6 +26,7 @@ class HabourWall(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
+        self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, FixedLadder):
