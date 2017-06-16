@@ -34,11 +34,15 @@ class CoveredFountain(Core.Entity):
         ladder tool and the target is the player (which means that the player took the tools).
         """
         Core.Entity.on_transfer(self, subject, parent, target)
-        if isinstance(subject, LadderTool) and isinstance(target, Player):
+        if isinstance(subject, LadderTool):
             rth_name = Core.get_res_man().get_string("game.places.roadToHabour.name")
             road_to_habour = Core.SinglePlayerApp.instance().findChild(Core.Place, rth_name)
             road_to_habour.set_state("flooded", 1)
-            target.get_window().show_text("EINE QUELLE HAT SICH GEÖFFNET UND EIN FLUSS FLIEßT")
+
+            player_name = Core.get_res_man().get_string("core.player.name")
+            player = Core.SinglePlayerApp.instance().findChild(Player, player_name)
+            if player is not None:
+                player.get_window().show_text("EINE QUELLE HAT SICH GEÖFFNET UND EIN FLUSS FLIEßT")
 
 def register_entity_classes(app):
     """
