@@ -42,7 +42,9 @@ class RoadToIvy(Core.Place):
             return True
         else:
             try:
-                subject.get_window().show_text("DU BIST NOCH HUNGRIG")
+                txt = "Ich sollte wohl vorher etwas frühstücken bevor ich ins Dorf gehe. In der \
+                Hütte ist bestimmt noch was zu essen."
+                subject.get_window().show_text(txt)
             except AttributeError:
                 pass
             return False
