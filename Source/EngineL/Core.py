@@ -139,11 +139,16 @@ class Entity(QObject):
         afterwards.
         """
         transfer_okay = True
+        if self.parent() == targeted_parent:
+            transfer_okay = False
+
         if not self.check_transfer_as_subject(targeted_parent):
             transfer_okay = False
+
         if self.parent() is not None:
             if not self.parent().check_transfer_as_parent(self, targeted_parent):
                 transfer_okay = False
+
         if targeted_parent is not None:
             if not targeted_parent.check_transfer_as_target(self):
                 transfer_okay = False
