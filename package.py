@@ -27,7 +27,7 @@ REQUIRED_DIRS = ["Resources", "Source"]
 for path in REQUIRED_DIRS:
     shutil.copytree(path, "package/" + path)
 
-REQUIRED_FILES = ["LICENSE", "ProjectL.pyw", "README.md"]
+REQUIRED_FILES = ["LICENSE", "ProjectL.pyw", "README.md", "install PyQt.py"]
 for path in REQUIRED_FILES:
     shutil.copy(path, "package/" + path)
 
