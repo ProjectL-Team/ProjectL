@@ -26,7 +26,7 @@ Alles, was geschieht, wird im Textfeld in der Mitte des Fensters ausgegeben. Wen
 * _"benutze Vase"_: Ivy benutzt die Vase so, wie es gedacht ist. Sie brauchen Ivy nicht zu sagen, was genau sie machen soll, sie versteht das von alleine. Wenn Sie also wollen, das Ivy irgendetwas isst oder durchsucht oder sonst irgendetwas macht, sagen Sie ihr einfach, dass sie diesen Gegenstand "benutzen" soll.
 * _"kombiniere Vase mit Blumenstrauß"_: Ivy kombiniert die Vase mit dem Blumenstrauß. Auch hier versteht Ivy immer was Sie meinen.
 * _"nimm Vase"_: Ivy nimmt die Vase auf. Wenn Ivy Gegenstände aufnimmt, sind sie immer in ihrer Tasche und können benutzt werden.
-* _"sprich Alex an"_: Ivy spricht Alex an. Was dann passiert, ist immer von der Situation abhängig.
+* _"sprich Gerrit an"_: Ivy spricht Alex an. Was dann passiert, ist immer von der Situation abhängig.
 
 Seien Sie ruhig ein bisschen kreativ mit den Befehlen und geben Sie nicht auf! Lassen Sie sich alles in Ruhe beschreiben!
 
