@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-A dialogue with Gerrit Alt, which triggers when Ivy talks to him the first time and she hasn't her
-mysterious find with her. 
+A dialogue with Gerrit Alt, which triggers when Ivy talks to him the first time. 
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -23,9 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <delay time="2000" />
     <text>"Lass mal sehen"</text>
     <delay time="1500" />
-    <text>"Wo ist es denn?"</text>
-    <delay time="1500" />
-    <text>"Ich muss es zuhause auf dem Schrotthaufen vergessen haben."</text>
-    <delay time="1500" />
-    <text>"Dann hol's!"</text>
+    <transfer subject="mysteriöses Fundstück" target="None" />
+    <delay time="3000" />
+    <text>"Das ist ein altes Windrad! Damit kannst du Strom erzeugen!"</text>
+    <delay time="3000" />
+    <text>"..."</text>
+    <spawn class="BrokenWindTurbine" target="Ivy" />
+    <changeState subject="Gers Haus" state="gave broken turbine" value="1" />
 </scene>

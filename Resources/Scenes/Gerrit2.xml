@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-A dialogue with Gerrit Alt, which triggers when Ivy talks to him the first time and she hasn't her
-mysterious find with her. 
+A dialogue with Gerrit Alt, which triggers when he had identified the mysterious find and Ivy did
+not find the copper coil.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -17,15 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>"Hallo Ivy!"</text>
-    <delay time="1500" />
-    <text>"Hallo Gerrit! Ich hab dieses Fundstück gefunden!"</text>
-    <delay time="2000" />
-    <text>"Lass mal sehen"</text>
-    <delay time="1500" />
-    <text>"Wo ist es denn?"</text>
-    <delay time="1500" />
-    <text>"Ich muss es zuhause auf dem Schrotthaufen vergessen haben."</text>
-    <delay time="1500" />
-    <text>"Dann hol's!"</text>
+    <text>"Bist du schon weiter gekommen?"</text>
+    <delay time="3000" />
+    <text>"Noch nicht!"</text>
+    <delay time="3000" />
+    <text>"Dann geh wieder zum Hafen, da findest du die Spule bestimmt!"</text>
 </scene>

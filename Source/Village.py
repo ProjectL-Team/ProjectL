@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
 import Source.EngineL.Scene as Scene
+from Source.WindTurbine import CopperCoil
 
 class GerritsHouse(Core.StaticEntity):
     """
@@ -28,7 +29,24 @@ class GerritsHouse(Core.StaticEntity):
         Core.StaticEntity.__init__(self, parent)
 
     def on_talk_to(self, other_entity):
-        Scene.XMLScene("Gerrit0", other_entity).play()
+        try:
+            gave_broken_turbine = bool(self.get_state("gave broken turbine"))
+        except KeyError:
+            gave_broken_turbine = False
+
+        if gave_broken_turbine:
+            wind_turbine = other_entity.findChild(CopperCoil)
+            if wind_turbine is None:
+                Scene.XMLScene("Gerrit1", other_entity).play()
+            else:
+                Scene.XMLScene("Gerrit2", other_entity).play()
+        else:
+            find_name = Core.get_res_man().get_string("game.places.yard.mysteriousFind.name")
+            find = other_entity.findChild(Core.Entity, find_name)
+            if find is None:
+                Scene.XMLScene("Gerrit0", other_entity).play()
+            else:
+                Scene.XMLScene("Gerrit1", other_entity).play()
 
 def register_entity_classes(app):
     """
