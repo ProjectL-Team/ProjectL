@@ -37,16 +37,16 @@ class GerritsHouse(Core.StaticEntity):
         if gave_broken_turbine:
             wind_turbine = other_entity.findChild(CopperCoil)
             if wind_turbine is None:
-                Scene.XMLScene("Gerrit1", other_entity).play()
+                Scene.XMLScene("Gerrit/#1 no coil", other_entity).play()
             else:
-                Scene.XMLScene("Gerrit2", other_entity).play()
+                Scene.XMLScene("Gerrit/#1 with coil", other_entity).play()
         else:
             find_name = Core.get_res_man().get_string("game.places.yard.mysteriousFind.name")
             find = other_entity.findChild(Core.Entity, find_name)
             if find is None:
-                Scene.XMLScene("Gerrit0", other_entity).play()
+                Scene.XMLScene("Gerrit/#0 no find", other_entity).play()
             else:
-                Scene.XMLScene("Gerrit1", other_entity).play()
+                Scene.XMLScene("Gerrit/#0 with find", other_entity).play()
 
 def register_entity_classes(app):
     """
