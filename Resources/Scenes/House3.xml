@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-The dialogue with Hex.
+The dialogue with the inhabitants of house 3.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -16,11 +16,5 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text> </text>
-    <text>""Ich bin Hex!"</text>
-    <delay time="1500" />
-
-    <!-- Abschließende Änderungen, bitte beibehalten! -->
-    <changeState subject="Ivy" state="met Hex" value="1" />
-    <transfer subject="Hex" target="None" />
+    <text>"Wir haben eine Leiter auf der Nutzfläche!"</text>
 </scene>

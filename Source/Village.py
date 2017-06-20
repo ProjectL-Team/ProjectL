@@ -48,8 +48,51 @@ class GerritsHouse(Core.StaticEntity):
             else:
                 Scene.XMLScene("Gerrit/#0 with find", other_entity).play()
 
+        return True
+
+class House1(Core.StaticEntity):
+    """
+    This is the house of family 1.
+    """
+    def __init__(self, parent=None):
+        Core.StaticEntity.__init__(self, parent)
+        self.scene = "House1"
+
+    def on_talk_to(self, other_entity):
+        try:
+            visited_habour = bool(other_entity.get_state("visited habour"))
+        except KeyError:
+            visited_habour = False
+        try:
+            visited = bool(self.get_state("visited"))
+        except KeyError:
+            visited = False
+
+        if visited_habour and not visited:
+            self.set_state("visited", 1)
+            Scene.XMLScene(self.scene, other_entity).play()
+            return True
+        else:
+            return False
+
+class House2(House1):
+    """
+    This is the house of family 2.
+    """
+    def __init__(self, parent=None):
+        House1.__init__(self, parent)
+        self.scene = "House2"
+
+class House3(House1):
+    """
+    This is the house of family 3.
+    """
+    def __init__(self, parent=None):
+        House1.__init__(self, parent)
+        self.scene = "House3"
+
 def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([GerritsHouse])
+    app.register_entity_classes([GerritsHouse, House1, House2, House3])

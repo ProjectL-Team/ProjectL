@@ -63,9 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <children>
             <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />
             <GerritsHouse name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
-            <StaticEntity name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
-            <StaticEntity name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
-            <StaticEntity name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
+            <House1 name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
+            <House2 name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
+            <House3 name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
         </children>
         <connection name="${game.places.roadToIvy.name}"/>
         <connection name="${game.places.roadToHabour.name}"/>
@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <connection name="${game.places.village.name}"/>
         <connection name="${game.places.habour.name}"/>
     </RoadToHabour>
-    <Place name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
+    <Habour name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
         <children>
             <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />
             <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <HabourWall name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
         </children>
         <connection name="${game.places.roadToHabour.name}"/>
-    </Place>
+    </Habour>
     <Place name="${game.places.field.name}" description="${game.places.field.description}" gender="n">
         <children>
             <StaticEntity name="${game.places.field.bed1.name}" description="${game.places.field.bed1.description}" gender="n" />
