@@ -18,8 +18,38 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
+from Source.EngineL.Gameplay import Player
 import Source.EngineL.Scene as Scene
 from Source.WindTurbine import CopperCoil
+
+class Village(Core.Place):
+    """
+    This is the village itself.
+    """
+    def on_transfer(self, subject, parent, target):
+        Core.Place.on_transfer(self, subject, parent, target)
+
+        if target == self and isinstance(subject, Player):
+            habour_road_name = Core.get_res_man().get_string("game.places.roadToHabour.name")
+            habour_road = self.parent().findChild(Core.Entity, habour_road_name)
+            if habour_road is not None:
+                try:
+                    habour_road_flooded = bool(habour_road.get_state("flooded"))
+                except KeyError:
+                    habour_road_flooded = False
+            else:
+                habour_road_flooded = False
+
+            if habour_road_flooded:
+                try:
+                    dialogue_triggered = bool(self.get_state("dialogue triggered"))
+                except KeyError:
+                    dialogue_triggered = False
+
+                if not dialogue_triggered:
+                    Scene.XMLScene("Village0", subject).play()
+                    self.set_state("dialogue triggered", 1)
+
 
 class GerritsHouse(Core.StaticEntity):
     """
@@ -95,4 +125,4 @@ def register_entity_classes(app):
     """
     This function registers all of our new Entity classes to the given application instance.
     """
-    app.register_entity_classes([GerritsHouse, House1, House2, House3])
+    app.register_entity_classes([Village, GerritsHouse, House1, House2, House3])

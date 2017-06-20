@@ -59,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <connection name="${game.places.yard.name}"/>
         <connection name="${game.places.village.name}"/>
     </RoadToIvy>
-    <Place name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
+    <Village name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
         <children>
             <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />
             <GerritsHouse name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <connection name="${game.places.roadToHabour.name}"/>
         <connection name="${game.places.field.name}"/>
         <connection name="${game.places.westSlope.name}"/>
-    </Place>
+    </Village>
     <RoadToHabour name="${game.places.roadToHabour.name}" description="${game.places.roadToHabour.description}" gender="m">
         <connection name="${game.places.village.name}"/>
         <connection name="${game.places.habour.name}"/>
