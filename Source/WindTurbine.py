@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL.Core as Core
+import Source.EngineL.Scene as Scene
 
 class BrokenWindTurbine(Core.Entity):
     """
@@ -71,7 +72,7 @@ class Signpost(Core.StaticEntity):
             other_entity.transfer(None)
             self.set_state("turbine mounted", 1)
             self.setObjectName("AUFGESTELLTES WINDRAD")
-            user.get_window().show_text(self.generate_description())
+            Scene.XMLScene("Ending", user).play()
             return True
         else:
             return False
