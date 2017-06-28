@@ -16,8 +16,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+from collections import deque
 import Source.EngineL.Core as Core
 import Source.EngineL.Scene as Scene
+from Source.Habour import Habour
 
 class RoadToIvy(Core.Place):
     """
@@ -55,7 +57,7 @@ class RoadToHabour(Core.Place):
     """
     def __init__(self, parent=None):
         Core.Place.__init__(self, parent)
-
+        self.set_state("flooded", 0)
     def on_transfer(self, subject, parent, target):
         """
         This non-constant, overriden method starts the scene 'Hex0' if Ivy hadn't met her before.
@@ -77,6 +79,38 @@ class RoadToHabour(Core.Place):
                 Scene.XMLScene("Hex0", subject).play()
                 return
         Core.Place.on_transfer(self, subject, parent, target)
+
+    def check_transfer_as_parent(self, subject, target):
+        """
+        This overriden, constant, semi-abstract method checks whether the planned transfer is ok. If
+        the new parent is a place, it tries to find a connection from us to it using a breadth-first
+        search. If not, it uses the default behaviour. Returns True if the transfer is okay, False
+        if not.
+        """
+        if target is None:
+            return True
+        elif target.is_place and isinstance(target, Habour):
+            if self.get_state("flooded") == 0:
+                return True
+            if self.get_state("flooded") == 1:
+                subject.get_window().show_text("siehst du das nicht???")
+                return False
+        elif target.is_place:
+            if not subject in self.children():
+                return False
+            place_queue = deque()
+            place_queue.append(self)
+            checked_places = [self]
+            while len(place_queue) > 0:
+                for new_place in place_queue.popleft().get_connected_places():
+                    if new_place == target:
+                        return True
+                    if new_place not in checked_places:
+                        place_queue.append(new_place)
+                        checked_places.append(new_place)
+            return False
+        else:
+            return Entity.check_transfer_as_parent(self, subject, target)
 
 def register_entity_classes(app):
     """
