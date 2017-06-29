@@ -34,21 +34,23 @@ class RoadToIvy(Core.Place):
         1 and only returns True if this is the case. If not, it will post a message that Ivy can not
         when she is still hungry and return False.
         """
-        try:
-            fed_up = bool(subject.get_state("fed up"))
-        except KeyError:
-            fed_up = False
-
-        if fed_up:
-            return True
-        else:
+        if Core.Place.check_transfer_as_target(self, subject):
             try:
-                txt = "Ich sollte wohl vorher etwas frühstücken bevor ich ins Dorf gehe. In der \
-                Hütte ist bestimmt noch was zu essen."
-                subject.get_window().show_text(txt)
-            except AttributeError:
-                pass
-            return True
+                fed_up = bool(subject.get_state("fed up"))
+            except KeyError:
+                fed_up = False
+
+            if fed_up:
+                return True
+            else:
+                try:
+                    txt = "Ich sollte wohl vorher etwas frühstücken bevor ich ins Dorf gehe. In der\
+                    Hütte ist bestimmt noch was zu essen."
+                    subject.get_window().show_text(txt)
+                except AttributeError:
+                    pass
+        return False
+        
 
 class RoadToHabour(Core.Place):
     """
@@ -87,15 +89,14 @@ class RoadToHabour(Core.Place):
         search. If not, it uses the default behaviour. Returns True if the transfer is okay, False
         if not.
         """
-        if not Core.Place.check_transfer_as_parent(self, subject, target):
-            return False
-        else:
+        if Core.Place.check_transfer_as_parent(self, subject, target):
             if isinstance(target, Habour):
                 if self.get_state("flooded") == 0:
                     return True
                 if self.get_state("flooded") == 1:
                     subject.get_window().show_text("DER FLUSS!")
-                    return False
+        
+        return False
 
 def register_entity_classes(app):
     """
