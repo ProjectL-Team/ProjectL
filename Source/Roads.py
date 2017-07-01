@@ -93,8 +93,11 @@ class RoadToHabour(Core.Place):
             if isinstance(target, Habour):
                 if self.get_state("flooded") == 0:
                     return True
-                if self.get_state("flooded") == 1:
+                else:
                     subject.get_window().show_text("DER FLUSS!")
+                    return False
+            else:
+                return True
         
         return False
 

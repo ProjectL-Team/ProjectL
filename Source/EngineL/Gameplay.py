@@ -121,6 +121,7 @@ class ClientWindow(QMainWindow):
         """
         while self.command_row.layout().count() > 0:
             self.command_row.layout().takeAt(0).widget().setParent(None)
+        self.text_area.ensureCursorVisible()
 
     def add_command_line(self):
         """
@@ -132,6 +133,7 @@ class ClientWindow(QMainWindow):
         self.command_row.layout().addWidget(self.command_line)
         self.command_line.returnPressed.connect(self.return_pressed)
         self.command_line.setFocus(Qt.ActiveWindowFocusReason)
+        self.text_area.ensureCursorVisible()
 
     def add_option_button(self, text):
         """
@@ -144,6 +146,7 @@ class ClientWindow(QMainWindow):
         child_number = len(self.command_row.children())
         button.setObjectName("option_button_" + str(child_number))
         self.command_row.layout().addWidget(button)
+        self.text_area.ensureCursorVisible()
         return button
 
     def closeEvent(self, event):
