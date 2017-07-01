@@ -1,7 +1,8 @@
 """
-All classes required by the tutorial part of ProjectL
+This minigame takes place at the road to the habour. To clear the by trash stowed river, Ivy has to
+get rid of the big heap and the trash coming from the mountain. If she finally breaks the dam she is
+able to cross the river and can go the habour.
 
-Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 Copyright (C) 2017 Jason "J2a0s0o0n" Becker
 
 This program is free software: you can redistribute it and/or modify
