@@ -98,7 +98,7 @@ class RoadToHabour(Core.Place):
         return False
     def spawn(self, entity):
         """
-        This non-constant method spawns different heaps and piles at the road to the habour.
+        This non-constant method spawns different things at road to the habour.
         """
         if entity == "bigheap":
             bigheap = Minigame.BigHeap(self)
