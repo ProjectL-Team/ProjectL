@@ -38,13 +38,15 @@ class CoveredFountain(Core.Entity):
         if isinstance(subject, LadderTool):
             rth_name = Core.get_res_man().get_string("game.places.roadToHabour.name")
             road_to_habour = Core.SinglePlayerApp.instance().findChild(Core.Place, rth_name)
-            road_to_habour.set_state("flooded", 1)
-            road_to_habour.spawn("bigheap")
+            if road_to_habour.get_state("flooded") == 0:
+                road_to_habour.set_state("flooded", 1)
+                road_to_habour.spawn("bigheap")
 
-            player_name = Core.get_res_man().get_string("core.player.name")
-            player = Core.SinglePlayerApp.instance().findChild(Player, player_name)
-            if player is not None:
-                player.get_window().show_text("EINE QUELLE HAT SICH GEÖFFNET UND EIN FLUSS FLIEßT")
+                player_name = Core.get_res_man().get_string("core.player.name")
+                player = Core.SinglePlayerApp.instance().findChild(Player, player_name)
+                if player is not None:
+                    player.get_window().show_text("EINE QUELLE HAT SICH GEÖFFNET UND EIN FLUSS\
+                    FLIEßT")
 
 def register_entity_classes(app):
     """

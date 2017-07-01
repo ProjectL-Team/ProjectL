@@ -21,6 +21,7 @@ import Source.EngineL
 import Source.Habour
 import Source.Hut
 import Source.Ladder
+import Source.Minigame
 import Source.Mountain
 import Source.Roads
 import Source.Village
@@ -39,6 +40,7 @@ class Game(Source.EngineL.Core.SinglePlayerApp):
             Source.Habour.register_entity_classes(self)
             Source.Hut.register_entity_classes(self)
             Source.Ladder.register_entity_classes(self)
+            Source.Minigame.register_entity_classes(self)
             Source.Mountain.register_entity_classes(self)
             Source.Roads.register_entity_classes(self)
             Source.Village.register_entity_classes(self)
