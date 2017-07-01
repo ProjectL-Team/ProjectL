@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import Source.EngineL.Core as Core
 import Source.EngineL.Scene as Scene
 from Source.Habour import Habour
+import Source.Minigame as Minigame
 
 class RoadToIvy(Core.Place):
     """
@@ -50,7 +51,7 @@ class RoadToIvy(Core.Place):
                 except AttributeError:
                     pass
         return False
-        
+
 
 class RoadToHabour(Core.Place):
     """
@@ -59,7 +60,6 @@ class RoadToHabour(Core.Place):
     def __init__(self, parent=None):
         Core.Place.__init__(self, parent)
         self.set_state("flooded", 0)
-        
     def on_transfer(self, subject, parent, target):
         """
         This non-constant, overriden method starts the scene 'Hex0' if Ivy hadn't met her before.
@@ -95,7 +95,23 @@ class RoadToHabour(Core.Place):
                     return True
                 if self.get_state("flooded") == 1:
                     subject.get_window().show_text("DER FLUSS!")
-        
+        return False
+    def spawn(self, entity):
+        """
+        This non-constant method spawns different heaps and piles at the road to the habour.
+        """
+        if entity == "bigheap":
+            bigheap = Minigame.BigHeap(self)
+            return True
+        if entity == "trash":
+            trash = Minigame.Trash(self)
+            return True
+        if entity == "shovel":
+            shovel = Minigame.Shovel(self)
+            return True
+        if entity == "dam":
+            dam = Minigame.Dam(self)
+            return True
         return False
 
 def register_entity_classes(app):
