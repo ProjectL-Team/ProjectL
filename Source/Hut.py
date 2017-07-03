@@ -181,7 +181,7 @@ class HoleInRoof(Core.StaticEntity):
         if isinstance(other_entity, Stopper):
             self.transfer(None)
             other_entity.transfer(None)
-            user.get_window().show_text("DAS LOCH IST GESTOPFT.")
+            user.get_window().show_text("Das Loch ist gestopft.")
             return True
         else:
             return False

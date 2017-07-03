@@ -17,15 +17,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>"Hallo Ivy!"</text>
+    <text>"Hallöchen Ivy! Hast du was neues für mich?"</text>
     <delay time="1500" />
-    <text>"Hallo Gerrit! Ich hab dieses Fundstück gefunden!"</text>
+    <text>"Hallo Gerrit! Ich hab dieses Schrottstück hier gefunden! Weißt du vielleicht was das sein könnte?"</text>
     <delay time="2000" />
     <text>"Lass mal sehen"</text>
     <delay time="1500" />
     <text>"Wo ist es denn?"</text>
     <delay time="1500" />
-    <text>"Ich muss es zuhause auf dem Schrotthaufen vergessen haben."</text>
+    <text>"Oh verdammt, ich muss es zuhause auf dem Schrotthaufen vergessen haben."</text>
     <delay time="1500" />
     <text>"Dann hol's!"</text>
 </scene>

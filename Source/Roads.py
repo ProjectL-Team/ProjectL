@@ -94,7 +94,7 @@ class RoadToHabour(Core.Place):
                 if self.get_state("flooded") == 0:
                     return True
                 else:
-                    subject.get_window().show_text("DER FLUSS!")
+                    subject.get_window().show_text("Ich komme nicht an dem Fluss vorbei!")
                     return False
             else:
                 return True

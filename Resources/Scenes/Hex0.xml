@@ -17,8 +17,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
     <text> </text>
-    <text>""Ich bin Hex!"</text>
+    <text>"Na Ivy? Willst du zum Hafen?"</text>
     <delay time="1500" />
+    <text>"Hallo Hex..."</text>
+    <delay time="1500" />
+    <text>"Was machst du denn hier? Dich sieht man hier ja nur sehr selten."</text>
+    <delay time="1500" />
+    <text>"Ich würde jetzt ja wirklich unglaublich gern mit dir plaudern, aber ich habe gerade leider keine Zeit für dich."</text>
+    <delay time="2000" />
+    <text>"Ach, wie geht es eigentlich deinen Eltern? Oh tut mir leid, der Vorfall ist mir wohl entfallen."</text>
+    <delay time="1500" />
+    <text>"Macht nichts. Ich muss jetzt weiter... komische Hexe."</text>
+    <delay time="1500" />
+    <text>"Wie war das?"</text>
+    <delay time="1500" />
+    <text>"Ähm Hex, ich meinte Hex! Auf Wiedersehen..."</text>
 
     <!-- Abschließende Änderungen, bitte beibehalten! -->
     <changeState subject="Ivy" state="met Hex" value="1" />

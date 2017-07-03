@@ -25,8 +25,8 @@ class BrokenWindTurbine(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("KAPUTTES WINDRAD")
-        self.description = "EIN KAPUTTES WINDRAD"
+        self.setObjectName("Kaputtes Windrad")
+        self.description = "Ein kaputtes Windrad. Solange es nicht repariert wurde, ist es nicht zu gebrauchen."
         self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
@@ -46,8 +46,8 @@ class CopperCoil(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("KUPFERSPULE")
-        self.description = "EINE KUPFERSPULE"
+        self.setObjectName("Kupferspule")
+        self.description = "Eine Kupferspule, mit der ich das Windrad reparieren kann."
 
 class WindTurbine(Core.Entity):
     """
@@ -55,8 +55,8 @@ class WindTurbine(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("WINDRAD")
-        self.description = "EIN WINDRAD"
+        self.setObjectName("Windrad")
+        self.description = "Ein Windrad. Wenn es im Wind steht kann es Strom erzeugen."
 
 class Signpost(Core.StaticEntity):
     """
@@ -64,14 +64,14 @@ class Signpost(Core.StaticEntity):
     """
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
-        self.setObjectName("WEGWEISER")
+        self.setObjectName("Wegweiser")
         self.activly_usable = True
 
     def on_used(self, user, other_entity=None):
         if isinstance(other_entity, WindTurbine):
             other_entity.transfer(None)
             self.set_state("turbine mounted", 1)
-            self.setObjectName("AUFGESTELLTES WINDRAD")
+            self.setObjectName("Aufgestelltes Windrad")
             Scene.XMLScene("Ending", user).play()
             return True
         else:
@@ -84,9 +84,9 @@ class Signpost(Core.StaticEntity):
             turbine_mounted = False
 
         if turbine_mounted:
-            return "DAS WINDRAD PRODUZIERT STROM."
+            return "Das Windrad ist jetzt angebracht. Es beginnt sofort sich zu drehen."
         else:
-            return "DAS IST EIN WEGWEISER"
+            return "Das ist ein Wegweiser. Er steht hier schon lange bevor ich geboren wurde."
 
 def register_entity_classes(app):
     """

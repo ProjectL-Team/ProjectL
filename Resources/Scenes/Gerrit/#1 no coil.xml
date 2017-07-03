@@ -17,9 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>"Bist du schon weiter gekommen?"</text>
-    <delay time="3000" />
-    <text>"Noch nicht!"</text>
-    <delay time="3000" />
-    <text>"Dann geh wieder zum Hafen, da findest du die Spule bestimmt!"</text>
+    <text>"Hast du die Spule schon?"</text>
+    <delay time="1500" />
+    <text>"Ne, noch nicht!"</text>
+    <delay time="1500" />
+    <text>"Dann geh zum Hafen, da findest du die Spule bestimmt!"</text>
 </scene>

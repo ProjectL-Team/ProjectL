@@ -17,6 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
     <text>"Ich hab die Spule gefunden!"</text>
-    <delay time="3000" />
-    <text>"Sehr schön!"</text>
+    <delay time="1500" />
+    <text>"Sehr schön! Du kannst sie jetzt in das Windrad einsetzen. Steht der Wegweiser noch vor deiner Hütte?"</text>
+    <delay time="2000" />
+    <text>"Ja! Wieso fragst du?"</text>
+    <delay time="1500" />
+    <text>"Dort könntest du das reparierte Windrad aufstellen."</text>
+    <delay time="1500" />
+    <text>"Super, danke. Ich gehe direkt los."</text>
 </scene>

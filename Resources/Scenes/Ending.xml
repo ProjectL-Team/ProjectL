@@ -16,5 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>Danke fürs Spielen!</text>
+    <delay time="5000" />
+    <text>_________________________________________________________</text>
+    <text>Drei Monate später kann man auf der Insel schon erste Veränderungen erkennen. An den Flussufern sprießen wieder einige Pflanzen und die ganze Insel erstrahlt in einem natürlichen Grün. Die Ölschicht um die Insel herum, wurde durch den Fluss weggeschwemmt und man erkennt zu Ivys Entzücken wieder einzelne Fischschwärme, die in Inselnähe auf Nahrungssuche gehen. Außerdem hat sich Ivy den von dem Windrad erzeugten Strom zu Nutze gemacht und isst morgens seitdem nur noch mit ihrem frisch gefundenen Toaster zubereitetes Toastbrot.</text>
+    <delay time="10000" />
+    <text>Vielen Dank fürs Spielen!</text>
 </scene>

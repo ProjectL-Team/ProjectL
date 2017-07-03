@@ -24,8 +24,8 @@ class Rungs(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("SPROSSEN")
-        self.description = "DAS SIND MEHRERE SPROSSEN"
+        self.setObjectName("Sprossen")
+        self.description = "Das sind einzelne Sprossen einer Leiter."
         self.gender = "f"
         self.show_article = False
         self.activly_usable = True
@@ -47,8 +47,8 @@ class Stringers(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("HOLME")
-        self.description = "DAS SIND ZWEI HOLME"
+        self.setObjectName("Holme")
+        self.description = "Das sind die Holme einer Leiter."
         self.gender = "m"
         self.show_article = False
 
@@ -58,8 +58,8 @@ class LooseLadder(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("WACKELIGE LEITER")
-        self.description = "DIESE LEITER IST WACKLIG UND MUSS REPARIERT WERDEN"
+        self.setObjectName("Wackelige Leiter")
+        self.description = "Diese Leiter ist wackelig und muss erst repariert werden. In den Bergen sollte ich bestimmt Werkzeug dafür finden."
         self.gender = "f"
         self.activly_usable = True
 
@@ -80,8 +80,8 @@ class LadderTool(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("WERKZEUG")
-        self.description = "MIT DIESEM WERKZEUG KANN MAN DIE LEITER REPARIEREN"
+        self.setObjectName("Werkzeug")
+        self.description = "Mit diesem Werkzeug sollte ich die Leiter reparieren können."
         self.gender = "n"
 
 class FixedLadder(Core.Entity):
@@ -90,8 +90,8 @@ class FixedLadder(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("LEITER")
-        self.description = "MIT DIESER LEITER KOMMT MAN FAST ÜBERALL HIN"
+        self.setObjectName("Leiter")
+        self.description = "Mit dieser Leiter kommt man überall drauf."
         self.gender = "f"
 
 def register_entity_classes(app):

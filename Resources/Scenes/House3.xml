@@ -16,5 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>"Wir haben eine Leiter auf der Nutzfläche!"</text>
+    <text>"Guten Tag! Es tut mir wirklich leid für die Störung, aber haben Sie vielleicht eine Leiter, die ich mir kurz ausleihen könnte?"</text>
+    <delay time="2500" />
+    <text>"Guten Tag, Ivy! Wir hatten mal eine Leiter auf der Nutzfläche. Möglicherweise findest du sie ja dort."</text>
+    <delay time="2000" />
+    <text>"Ok, Dankeschön! Ich werde mich dort mal umschauen!"</text>
 </scene>

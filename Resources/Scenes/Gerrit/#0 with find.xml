@@ -24,9 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <delay time="1500" />
     <transfer subject="mysteriöses Fundstück" target="None" />
     <delay time="3000" />
-    <text>"Das ist ein altes Windrad! Damit kannst du Strom erzeugen!"</text>
+    <text>"Hmm, das sieht mir nach einem alten Windrad aus. Es wurde benutzt, um Strom zu erzeugen! Es ist allerdings kaputt."</text>
     <delay time="3000" />
-    <text>"..."</text>
+    <text>"Strom? Davon habe ich noch nie gehört. Zeigst du mir was Strom ist, wenn ich das Windrad repariert habe?"</text>
+    <delay time="2000" />
+    <text>"Hahaha genauso wissensbegierig wie deine Eltern. Natürlich zeige ich dir dann alles. Um das Windrad zu reparieren, brauchst du eine Kupferspule. Ich glaube ich habe so eine letztens noch am Hafen gesehen."</text>
+    <delay time="3000" />
+    <text>"Ok ich komme gleich mit der Kupferspule wieder."</text>
+    <delay time="1500" />
+    <text>"Hahaha! Das erinnert mich daran, wie ich früher noch meinen Interessen hinterhergejagt bin."</text>
     <spawn class="BrokenWindTurbine" target="Ivy" />
     <changeState subject="Gers Haus" state="gave broken turbine" value="1" />
 </scene>

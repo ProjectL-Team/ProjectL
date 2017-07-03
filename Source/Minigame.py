@@ -123,7 +123,7 @@ class Dam(Core.StaticEntity):
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
         self.setObjectName("Damm")
-        self.description = "Dieser Dam ist noch größer als der Haufen an Müll von vorhin. Jetzt\
+        self.description = "Dieser Damm ist noch größer als der Haufen an Müll von vorhin. Jetzt\
         zählt jede Sekunde!"
         self.gender = "m"
         self.activly_usable = True
