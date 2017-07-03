@@ -34,5 +34,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <delay time="1500" />
     <text>"Hahaha! Das erinnert mich daran, wie ich früher noch meinen Interessen hinterhergejagt bin."</text>
     <spawn class="BrokenWindTurbine" target="Ivy" />
-    <changeState subject="Gers Haus" state="gave broken turbine" value="1" />
+    <changeState subject="Gerrits Haus" state="gave broken turbine" value="1" />
 </scene>
