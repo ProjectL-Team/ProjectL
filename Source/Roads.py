@@ -2,6 +2,7 @@
 This module contains all roads in the game since they belong to any other module.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

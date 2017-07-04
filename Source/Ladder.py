@@ -2,6 +2,7 @@
 This module contains everything required to craft the ladder (and the ladder itself, of course).
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

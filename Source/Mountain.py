@@ -2,6 +2,7 @@
 This module contains the scrap heap on the mountain, which also happens to be a fountain.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
