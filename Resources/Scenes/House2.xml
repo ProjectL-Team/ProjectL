@@ -3,6 +3,7 @@
 The dialogue with the inhabitants of house 2.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,12 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
     <text>"Guten Tag Frau Kehricht! Wie geht es Ihren Kindern?"</text>
-    <delay time="1500" />
+    <delay time="2000" />
     <text>"Denen geht es super. Ich glaube sie spielen gerade hinten im Garten. Und wie geht es Dir?"</text>
-    <delay time="2000" />
-    <text>"Mir geht es auch ganz gut. Ich bin auf der Suche nach einer Leiter. Haben Sie hier eine?"</text>
-    <delay time="2000" />
-    <text>"Tut mir leid Ivy, aber wir haben keine Leiter. Vielleicht wirst du ja bei den anderen Familien fündig."</text>
     <delay time="2500" />
+    <text>"Mir geht es auch ganz gut. Ich bin auf der Suche nach einer Leiter. Haben Sie hier eine?"</text>
+    <delay time="2500" />
+    <text>"Tut mir leid Ivy, aber wir haben keine Leiter. Vielleicht wirst du ja bei den anderen Familien fündig."</text>
+    <delay time="3000" />
     <text>"Okay. Dann frage ich mal weiter 'rum. Schönen Tag noch."</text>
 </scene>

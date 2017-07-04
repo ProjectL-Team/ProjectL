@@ -58,7 +58,7 @@ class LooseLadder(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("Wackelige Leiter")
+        self.setObjectName("wackelige Leiter")
         self.description = "Diese Leiter ist wackelig und muss erst repariert werden. In den Bergen sollte ich bestimmt Werkzeug dafür finden."
         self.gender = "f"
         self.activly_usable = True

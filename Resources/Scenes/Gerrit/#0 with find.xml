@@ -3,6 +3,7 @@
 A dialogue with Gerrit Alt, which triggers when Ivy talks to him the first time. 
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <text>"Hallo Ivy!"</text>
     <delay time="1500" />
     <text>"Hallo Gerrit! Ich hab dieses Fundstück gefunden!"</text>
-    <delay time="2000" />
+    <delay time="2500" />
     <text>"Lass mal sehen"</text>
     <delay time="1500" />
     <transfer subject="mysteriöses Fundstück" target="None" />
@@ -27,11 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <text>"Hmm, das sieht mir nach einem alten Windrad aus. Es wurde benutzt, um Strom zu erzeugen! Es ist allerdings kaputt."</text>
     <delay time="3000" />
     <text>"Strom? Davon habe ich noch nie gehört. Zeigst du mir was Strom ist, wenn ich das Windrad repariert habe?"</text>
-    <delay time="2000" />
-    <text>"Hahaha genauso wissensbegierig wie deine Eltern. Natürlich zeige ich dir dann alles. Um das Windrad zu reparieren, brauchst du eine Kupferspule. Ich glaube ich habe so eine letztens noch am Hafen gesehen."</text>
     <delay time="3000" />
+    <text>"Hahaha genauso wissensbegierig wie deine Eltern. Natürlich zeige ich dir dann alles. Um das Windrad zu reparieren, brauchst du eine Kupferspule. Ich glaube ich habe so eine letztens noch am Hafen gesehen."</text>
+    <delay time="4500" />
     <text>"Ok ich komme gleich mit der Kupferspule wieder."</text>
-    <delay time="1500" />
+    <delay time="2000" />
     <text>"Hahaha! Das erinnert mich daran, wie ich früher noch meinen Interessen hinterhergejagt bin."</text>
     <spawn class="BrokenWindTurbine" target="Ivy" />
     <changeState subject="Gerrits Haus" state="gave broken turbine" value="1" />

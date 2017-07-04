@@ -25,7 +25,7 @@ class BrokenWindTurbine(Core.Entity):
     """
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
-        self.setObjectName("Kaputtes Windrad")
+        self.setObjectName("kaputtes Windrad")
         self.description = "Ein kaputtes Windrad. Solange es nicht repariert wurde, ist es nicht zu gebrauchen."
         self.activly_usable = True
 
@@ -71,7 +71,7 @@ class Signpost(Core.StaticEntity):
         if isinstance(other_entity, WindTurbine):
             other_entity.transfer(None)
             self.set_state("turbine mounted", 1)
-            self.setObjectName("Aufgestelltes Windrad")
+            self.setObjectName("aufgestelltes Windrad")
             Scene.XMLScene("Ending", user).play()
             return True
         else:
