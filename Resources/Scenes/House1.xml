@@ -3,6 +3,7 @@
 The dialogue with the inhabitants of house 1.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,5 +17,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <scene>
-    <text>"Wir haben keine Leiter!"</text>
+    <text>""Muss ich wirklich bei Scheff und Hex nach einer Leiter fragen?...""</text>
+    <delay time="2000" />
+    <text>"Oh hallo Ivy. Willst du mal wieder bei mir vorbeischauen? Ich kann dich gut verstehen."</text>
+    <delay time="2500" />
+    <text>"Hallo Scheff... Eigentlich wollte ich nur nach einer Leiter fragen. Habt ihr hier eine?"</text>
+    <delay time="2500" />
+    <text>"Eine Leiter? Wofür brauchst du die denn? Hast du jetzt doch vor dich auf mein Niveau zu begeben?"</text>
+    <delay time="3000" />
+    <text>"Ne aber nach einer Schaufel habe ich auch nicht gefragt."</text>
+    <delay time="2500" />
+    <text>"Wie bitte?"</text>
+    <delay time="1500" />
+    <text>"Ach nichts. Habt ihr jetzt eine oder nicht?"</text>
+    <delay time="2000" />
+    <text>"Was bekomme ich für die Information?"</text>
+    <delay time="1500" />
+    <text>"Vergiss es Scheff... Ich frag' wen anderes"</text>
 </scene>

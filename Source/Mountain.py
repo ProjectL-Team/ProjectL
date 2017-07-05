@@ -2,6 +2,7 @@
 This module contains the scrap heap on the mountain, which also happens to be a fountain.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
+Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -45,8 +46,7 @@ class CoveredFountain(Core.Entity):
                 player_name = Core.get_res_man().get_string("core.player.name")
                 player = Core.SinglePlayerApp.instance().findChild(Player, player_name)
                 if player is not None:
-                    player.get_window().show_text("EINE QUELLE HAT SICH GEÖFFNET UND EIN FLUSS\
-                    FLIEßT")
+                    player.get_window().show_text("Eine Quelle hat sich geöffnet und der Fluss fließt wieder.")
 
 def register_entity_classes(app):
     """
