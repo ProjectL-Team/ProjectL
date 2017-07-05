@@ -164,7 +164,7 @@ class Dam(Core.StaticEntity):
             other_entity.transfer(None)
             rth_name = Core.get_res_man().get_string("game.places.roadToHabour.name")
             road_to_habour = Core.SinglePlayerApp.instance().findChild(Core.Place, rth_name)
-            road_to_habour.set_state("flooded", 0)
+            road_to_habour.set_state("cleared", 1)
             return True
         return False
 
