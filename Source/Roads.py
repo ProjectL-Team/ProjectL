@@ -61,6 +61,7 @@ class RoadToHabour(Core.Place):
     def __init__(self, parent=None):
         Core.Place.__init__(self, parent)
         self.set_state("flooded", 0)
+        self.set_state("cleared", 0)
     def on_transfer(self, subject, parent, target):
         """
         This non-constant, overriden method starts the scene 'Hex0' if Ivy hadn't met her before.
@@ -92,7 +93,7 @@ class RoadToHabour(Core.Place):
         """
         if Core.Place.check_transfer_as_parent(self, subject, target):
             if isinstance(target, Habour):
-                if self.get_state("flooded") == 0:
+                if self.get_state("flooded") == 0 or self.get_state("cleared") == 1:
                     return True
                 else:
                     subject.get_window().show_text("Ich komme nicht an dem Fluss vorbei!")
