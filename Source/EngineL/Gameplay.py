@@ -17,11 +17,76 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal
+from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, QEvent
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit
 from PyQt5.QtWidgets import QMenuBar, QPushButton
 from Source.EngineL import Core
+
+class CommandLine(QLineEdit):
+    """
+    A slightly modified version of the QLineEdit which is meant to be used as the command line.
+    """
+    def __init__(self, parent=None):
+        QLineEdit.__init__(self, parent)
+
+        # Retrieving our window.
+        self.window_instance = None
+        current_parent = self.parent()
+        while current_parent is not None:
+            if isinstance(current_parent, ClientWindow):
+                self.window_instance = current_parent
+                break
+            else:
+                current_parent = current_parent.parent()
+
+        # Retrieving the last position in the command stack.
+        self.stack_position = 0
+        if self.window_instance is not None:
+            self.stack_position = len(self.window_instance.get_command_stack())
+
+    def event(self, event):
+        """
+        This non-constant, overriden method calls our parent's event method and if it returns False,
+        we will check whether the event is a key event. If this is the case it will paste the
+        previous command to the command line if the "up"-key was pushed or the followed command (or
+        nothing) if the "down"-key was pushed.
+        """
+        parents_value = QLineEdit.event(self, event)
+
+        if event.type() == QEvent.KeyPress\
+        and self.window_instance is not None\
+        and len(self.window_instance.get_command_stack()) > 0:
+
+            if event.key() == Qt.Key_Up:
+                if self.stack_position > 0:
+                    self.stack_position -= 1
+
+                command_text = self.window_instance.get_command_stack()[self.stack_position]
+                if command_text is not None:
+                    self.setText(command_text)
+
+                return True
+            elif event.key() == Qt.Key_Down:
+                if self.stack_position < len(self.window_instance.get_command_stack()):
+                    self.stack_position += 1
+            
+                if self.stack_position == len(self.window_instance.get_command_stack()):
+                    self.setText(str())
+                else:
+                    command_text = self.window_instance.get_command_stack()[self.stack_position]
+                    self.setText(command_text)
+                return True
+
+        return parents_value
+
+    def clear(self):
+        """
+        This non-constant, overriden method calls our parent's implementation and resets our command
+        stack position, since it will be changed.
+        """
+        QLineEdit.clear(self)
+        self.stack_position = len(self.window_instance.get_command_stack())
 
 class ClientWindow(QMainWindow):
     """
@@ -33,6 +98,8 @@ class ClientWindow(QMainWindow):
 
     def __init__(self):
         QMainWindow.__init__(self)
+
+        self.command_stack = []
 
         self.setObjectName("client_window")
         self.setWindowModality(Qt.NonModal)
@@ -69,6 +136,18 @@ class ClientWindow(QMainWindow):
         menu_bar = QMenuBar(self)
         menu_bar.setObjectName("menubar")
         self.setMenuBar(menu_bar)
+    
+    def get_command_stack(self):
+        """
+        This constant method returns a stack with all commands we ran.
+        """
+        return self.command_stack
+
+    def stack_command(self, command_text):
+        """
+        This non-constant method puts another command on our command stack.
+        """
+        self.command_stack.append(command_text)
 
     def get_text_area(self):
         """
@@ -80,13 +159,14 @@ class ClientWindow(QMainWindow):
         """
         This non-constant method Returns the text of the command prompt widget. If show_command is
         True, it will also show the entered text in the text area and if clear_prompt is True, it
-        will also clear the prompt.
+        will also add the command to our command stack and clear the prompt.
         """
         if self.command_line is not None:
             text = self.command_line.text()
             if show_command and len(text) > 0:
                 self.show_command(text)
             if clear_prompt:
+                self.stack_command(text)
                 self.command_line.clear()
             return text
         else:
@@ -127,7 +207,7 @@ class ClientWindow(QMainWindow):
         """
         This non-constant method adds a command line to our command row.
         """
-        self.command_line = QLineEdit(self.command_row)
+        self.command_line = CommandLine(self.command_row)
         child_number = len(self.command_row.children())
         self.command_line.setObjectName("command_line_" + str(child_number))
         self.command_row.layout().addWidget(self.command_line)
@@ -417,6 +497,7 @@ class Player(Core.Entity):
 
     def __init__(self, parent=None):
         Core.Entity.__init__(self, parent)
+
         self.setObjectName(Core.get_res_man().get_string("core.player.name"))
         self.description = "${core.player.description}"
         self.gender = "f"
