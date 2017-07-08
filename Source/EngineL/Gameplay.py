@@ -519,6 +519,7 @@ class Player(Core.Entity):
 
         self.setObjectName(Core.get_res_man().get_string("core.player.name"))
         self.description = "${core.player.description}"
+        self.hidden = True
         self.gender = "f"
         self.show_article = False
 

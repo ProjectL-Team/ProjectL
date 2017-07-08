@@ -127,6 +127,7 @@ class Entity(QObject):
         self.description = str()
         self.is_place = False
         self.states = dict()
+        self.hidden = False
         self.gender = "n"
         self.show_article = True
         self.use_definite_article = False
@@ -285,7 +286,7 @@ class Entity(QObject):
         """
         children = []
         for child in self.children():
-            if issubclass(child.__class__, Entity):
+            if issubclass(child.__class__, Entity) and (not child.get_is_hidden()):
                 children.append(child)
 
         string_key_root = "${core.entity.inventoryList."
@@ -511,6 +512,19 @@ class Entity(QObject):
         This constant method returns True if it's a place
         """
         return self.is_place
+    
+    def get_is_hidden(self):
+        """
+        This constant method returns True if we are hidden and do not want to be listed in inventory
+        or exit listings.
+        """
+        return self.hidden
+    
+    def set_is_hidden(self, is_hidden):
+        """
+        This non-constant method sets our `is_hidden` flag: If it is True, we won't be listed in
+        inventory or exit listings.
+        """
 
     def get_gender(self):
         """
@@ -687,11 +701,15 @@ class Place(Entity):
         This constant method generates a readable list of all places we are connected to. It may
         throw a LookupError if a resource string could not be found.
         """
-        try:
-            con_places = self.connected_places # a copy to shorten the lines
-            if len(con_places) == 0:
-                return "${core.place.exitList.noExits}"
+        con_places = []
+        for place in self.connected_places:
+            if not place.get_is_hidden():
+                con_places.append(place)
 
+        if len(con_places) == 0:
+            return "${core.place.exitList.noExits}"
+
+        try:
             inventory_list = "${core.place.exitList.beginning} " + con_places[0].get_preposition()
             inventory_list += " <b>" + con_places[0].objectName() + "</b>"
 
