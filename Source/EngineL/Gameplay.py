@@ -105,8 +105,8 @@ class ClientWindow(QMainWindow):
         self.setWindowModality(Qt.NonModal)
         self.resize(800, 600)
         self.setDocumentMode(False)
-        title = Core.get_res_man().get_string("core.windowTitle")
-        self.setWindowTitle(title)
+        self.raw_title = Core.get_res_man().get_string("core.windowTitle")
+        self.setWindowTitle(self.raw_title)
 
         central_widget = QWidget(self)
         central_widget.setObjectName("central_widget")
@@ -136,7 +136,13 @@ class ClientWindow(QMainWindow):
         menu_bar = QMenuBar(self)
         menu_bar.setObjectName("menubar")
         self.setMenuBar(menu_bar)
-    
+
+    def get_raw_title(self):
+        """
+        This constant method returns our raw window title.
+        """
+        return self.raw_title
+
     def get_command_stack(self):
         """
         This constant method returns a stack with all commands we ran.
@@ -400,8 +406,12 @@ class GameplayParser(QObject):
 
         if target is None:
             self.window.show_text("${core.gameplayParser.invalidTargetMessage}")
+            return
         elif not self.parent().transfer(target):
             self.window.show_text("${core.gameplayParser.genericError}")
+            return
+        
+        self.parent().update_window_title()
 
     def exec_pick_up(self):
         """
@@ -533,10 +543,19 @@ class Player(Core.Entity):
 
     def on_game_launched(self):
         """
-        This constant, overriden method gets called when the game has just started and shows the
-        description of our current place.
+        This constant, overriden method gets called when the game has just started. It shows the
+        description of our current place in the text area and updates our window title.
         """
+        Core.Entity.on_game_launched(self)
         self.get_window().show_text(self.parent().generate_description())
+        self.update_window_title()
+
+    def update_window_title(self):
+        """
+        This non-constant method updates our window title.
+        """
+        new_title = self.parent().objectName() + " | " + self.get_window().get_raw_title()
+        self.get_window().setWindowTitle(new_title)
 
     def on_transfer(self, subject, parent, target):
         """
