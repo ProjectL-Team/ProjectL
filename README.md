@@ -27,7 +27,9 @@ Alles, was geschieht, wird im Textfeld in der Mitte des Fensters ausgegeben. Wen
 * _"kombiniere Vase mit Blumenstrauß"_: Ivy kombiniert die Vase mit dem Blumenstrauß. Auch hier versteht Ivy immer was Sie meinen.
 * _"nimm Vase"_: Ivy nimmt die Vase auf. Wenn Ivy Gegenstände aufnimmt, sind sie immer in ihrer Tasche und können benutzt werden.
 
-Wenn Sie einen Befehl, den Sie schonmal verwendet haben, nochmal benutzen wollen, können Sie mit den Pfeiltasten nach oben und unten durch Ihre vorherigen Eingaben suchen. Der Text im Eingabefeld wird dann 1:1 durch die vorherige Eingabe ersetzt. Auch können Sie schnell das Textfeld leeren, indem Sie einmal nach unten suchen.
+Wenn Sie einen Befehl, den Sie schonmal verwendet haben, nochmal benutzen wollen, können Sie mit den Pfeiltasten nach oben und unten durch Ihre vorherigen Eingaben suchen. Der Text in der Eingabezeile wird dann 1:1 durch die vorherige Eingabe ersetzt. Auch können Sie schnell das Textfeld leeren, indem Sie einmal nach unten suchen.
+
+Sollte Ihnen der Text mal zu klein zum Lesen sein, können den Text vergrößern, indem Sie zuerst die Maus in das Textfeld bewegen und dann, während Sie die Steuerungstaste (Strg oder Ctrl) gedrückt halten, mit dem Mausrad scrollen.
 
 Seien Sie ruhig ein bisschen kreativ mit den Befehlen und geben Sie nicht auf! Lassen Sie sich alles in Ruhe beschreiben!
 
