@@ -58,25 +58,25 @@ class GerritsHouse(Core.StaticEntity):
     def __init__(self, parent=None):
         Core.StaticEntity.__init__(self, parent)
 
-    def on_talk_to(self, other_entity):
+    def on_used(self, user, other_entity=None):
         try:
             gave_broken_turbine = bool(self.get_state("gave broken turbine"))
         except KeyError:
             gave_broken_turbine = False
 
         if gave_broken_turbine:
-            wind_turbine = other_entity.findChild(CopperCoil)
+            wind_turbine = user.findChild(CopperCoil)
             if wind_turbine is None:
-                Scene.XMLScene("Gerrit/#1 no coil", other_entity).play()
+                Scene.XMLScene("Gerrit/#1 no coil", user).play()
             else:
-                Scene.XMLScene("Gerrit/#1 with coil", other_entity).play()
+                Scene.XMLScene("Gerrit/#1 with coil", user).play()
         else:
             find_name = Core.get_res_man().get_string("game.places.yard.mysteriousFind.name")
-            find = other_entity.findChild(Core.Entity, find_name)
+            find = user.findChild(Core.Entity, find_name)
             if find is None:
-                Scene.XMLScene("Gerrit/#0 no find", other_entity).play()
+                Scene.XMLScene("Gerrit/#0 no find", user).play()
             else:
-                Scene.XMLScene("Gerrit/#0 with find", other_entity).play()
+                Scene.XMLScene("Gerrit/#0 with find", user).play()
 
         return True
 
@@ -88,9 +88,9 @@ class House1(Core.StaticEntity):
         Core.StaticEntity.__init__(self, parent)
         self.scene = "House1"
 
-    def on_talk_to(self, other_entity):
+    def on_used(self, user, other_entity=None):
         try:
-            visited_habour = bool(other_entity.get_state("visited habour"))
+            visited_habour = bool(user.get_state("visited habour"))
         except KeyError:
             visited_habour = False
         try:
@@ -100,7 +100,7 @@ class House1(Core.StaticEntity):
 
         if visited_habour and not visited:
             self.set_state("visited", 1)
-            Scene.XMLScene(self.scene, other_entity).play()
+            Scene.XMLScene(self.scene, user).play()
             return True
         else:
             return False
