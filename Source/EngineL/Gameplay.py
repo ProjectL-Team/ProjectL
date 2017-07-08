@@ -172,6 +172,12 @@ class ClientWindow(QMainWindow):
         else:
             return str()
 
+    def scroll_text_area_down(self):
+        """
+        This non-constant method scrolls our text area down until the end of our text is visible.
+        """
+        self.text_area.ensureCursorVisible()
+
     def show_text(self, text, emplace_res_strings=True, add_html_tags=True):
         """
         Thi non-constant method prints the given text in the text area as it's own paragraph.
@@ -185,6 +191,8 @@ class ClientWindow(QMainWindow):
         if add_html_tags:
             text = '<html><body>' + text + '</body></html>'
         self.text_area.append(text)
+        self.text_area.show()
+        self.scroll_text_area_down()
 
     def show_command(self, text):
         """
@@ -201,7 +209,7 @@ class ClientWindow(QMainWindow):
         """
         while self.command_row.layout().count() > 0:
             self.command_row.layout().takeAt(0).widget().setParent(None)
-        self.text_area.ensureCursorVisible()
+        self.scroll_text_area_down()
 
     def add_command_line(self):
         """
@@ -213,7 +221,8 @@ class ClientWindow(QMainWindow):
         self.command_row.layout().addWidget(self.command_line)
         self.command_line.returnPressed.connect(self.return_pressed)
         self.command_line.setFocus(Qt.ActiveWindowFocusReason)
-        self.text_area.ensureCursorVisible()
+        self.command_line.show()
+        self.scroll_text_area_down()
 
     def add_option_button(self, text):
         """
@@ -226,7 +235,7 @@ class ClientWindow(QMainWindow):
         child_number = len(self.command_row.children())
         button.setObjectName("option_button_" + str(child_number))
         self.command_row.layout().addWidget(button)
-        self.text_area.ensureCursorVisible()
+        self.scroll_text_area_down()
         return button
 
     def closeEvent(self, event):
