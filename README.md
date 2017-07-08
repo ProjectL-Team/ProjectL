@@ -28,6 +28,8 @@ Alles, was geschieht, wird im Textfeld in der Mitte des Fensters ausgegeben. Wen
 * _"nimm Vase"_: Ivy nimmt die Vase auf. Wenn Ivy Gegenstände aufnimmt, sind sie immer in ihrer Tasche und können benutzt werden.
 * _"sprich Gerrit an"_: Ivy spricht Alex an. Was dann passiert, ist immer von der Situation abhängig.
 
+Wenn Sie einen Befehl, den Sie schonmal verwendet haben, nochmal benutzen wollen, können Sie mit den Pfeiltasten nach oben und unten durch Ihre vorherigen Eingaben suchen. Der Text im Eingabefeld wird dann 1:1 durch die vorherige Eingabe ersetzt. Auch können Sie schnell das Textfeld leeren, indem Sie einmal nach unten suchen.
+
 Seien Sie ruhig ein bisschen kreativ mit den Befehlen und geben Sie nicht auf! Lassen Sie sich alles in Ruhe beschreiben!
 
 Viel Spaß beim Spielen!
