@@ -21,7 +21,7 @@ from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, QEvent
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit
 from PyQt5.QtWidgets import QMenuBar, QPushButton
-from Source.EngineL import Core
+from Source.EngineL import Core, Scene
 
 class CommandLine(QLineEdit):
     """
@@ -530,6 +530,8 @@ class Player(Core.Entity):
 
         self.window.return_pressed.connect(self.gameplay_parser.command_entered)
 
+        self.set_state("first run", 1)
+
     def get_window(self):
         """
         This constant method returns our window.
@@ -548,8 +550,11 @@ class Player(Core.Entity):
         description of our current place in the text area and updates our window title.
         """
         Core.Entity.on_game_launched(self)
-        self.get_window().show_text(self.parent().generate_description())
         self.update_window_title()
+        self.get_window().show_text(self.parent().generate_description())
+        if self.get_state("first run") == 1:
+            self.set_state("first run", 0)
+            Scene.XMLScene("Prologue", self).play()
 
     def update_window_title(self):
         """
