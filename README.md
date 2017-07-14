@@ -4,8 +4,7 @@ Willkommen zu "ProjectL", einer interaktiven Kurzgeschichte über Ivy und ihre I
 
 ### Installationsanleitung
 
-ProjectL unterstützt aktuell die Betriebsysteme Windows, Ubuntu und Fedora. Der erste Schritt bei der Installation von ProjectL ist immer die Installation von Python und PyQt,
-welche sich je nach Betriebsystem unterscheidet, die eigentliche Installation ist aber immer gleich:
+ProjectL unterstützt aktuell die Betriebsysteme Windows und Ubuntu. Für jedes System ist die Installation etwas anders:
 
 #### Windows
 
@@ -13,22 +12,17 @@ welche sich je nach Betriebsystem unterscheidet, die eigentliche Installation is
 2. Wählen Sie die Option "Add Python 3.6 to PATH" aus und klicken auf "Install Now".
 3. Schließen Sie das Fenster, sobald die Meldung "Setup was successfull" erscheint.
 4. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (ZIP-Datei) herunter.
-
-#### Fedora
-
-1. Öffnen Sie ein Terminal, geben den Befehl `sudo dnf install python3 python3-qt5` ein und drücken Enter.
-2. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (TAR.GZ-Datei) herunter.
+5. Entpacken bzw. extrahieren Sie das Archiv in einem Ordner ihrer Wahl.
+6. Installieren Sie PyQt5, in dem Sie im Ordner von ProjectL die Datei `install PyQt` oder `install PyQt.py` doppelklicken. Drücken Sie die Eingabe-Taste, wenn Sie dazu aufgefordert werden.
+7. Starten Sie das Spiel, indem Sie auf die Datei `ProjectL` oder `ProjectL.pyw` doppelklicken.
 
 #### Ubuntu
 
-1. Öffnen Sie ein Terminal, geben den Befehl `sudo apt-get update && sudo apt-get install python3 python-pyqt5` ein und drücken Enter.
-2. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (TAR.GZ-Datei) herunter.
-
-#### Alle Systeme
-
-1. Entpacken bzw. extrahieren Sie das Archiv in einem Ordner ihrer Wahl.
-2. Installieren Sie PyQt5, in dem Sie im Ordner von ProjectL die Datei `install PyQt` oder `install PyQt.py` doppelklicken. Drücken Sie die Eingabe-Taste, wenn Sie dazu aufgefordert werden.
-3. Starten Sie das Spiel, indem sie auf die Datei `ProjectL` oder `ProjectL.pyw` doppelklicken.
+1. Öffnen Sie ein Terminal, geben den Befehl `sudo apt-get update && sudo apt-get install python3 python3-pyqt5` ein und drücken Enter. Lassen Sie das Terminal nach der Installation offen, Sie werden es später noch brauchen.
+2. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (ZIP-Datei) herunter.
+3. Entpacken bzw. extrahieren Sie das Archiv in einem Ordner ihrer Wahl.
+4. Navigieren Sie im Terminal in den Ordner von ProjectL und führen dort den Befehl `chmod +x ProjectL.pyw` aus.
+5. Starten Sie das Spiel, indem Sie im Terminal den Befehl `./ProjectL.pyw` ausführen.
 
 ### So wird gespielt:
 
