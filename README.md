@@ -4,15 +4,31 @@ Willkommen zu "ProjectL", einer interaktiven Kurzgeschichte über Ivy und ihre I
 
 ### Installationsanleitung
 
-So installieren Sie ProjectL auf ihrem Windows-PC oder -Notebook:
+ProjectL unterstützt aktuell die Betriebsysteme Windows, Ubuntu und Fedora. Der erste Schritt bei der Installation von ProjectL ist immer die Installation von Python und PyQt,
+welche sich je nach Betriebsystem unterscheidet, die eigentliche Installation ist aber immer gleich:
+
+#### Windows
 
 1. Laden Sie Python [hier](https://www.python.org/ftp/python/3.6.1/python-3.6.1.exe) herunter und führen das Programm aus.
 2. Wählen Sie die Option "Add Python 3.6 to PATH" aus und klicken auf "Install Now".
 3. Schließen Sie das Fenster, sobald die Meldung "Setup was successfull" erscheint.
 4. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (ZIP-Datei) herunter.
-5. Entpacken bzw. extrahieren Sie das Archiv in einem Ordner ihrer Wahl.
-6. Installieren Sie PyQt5, in dem Sie im Ordner von ProjectL die Datei `install PyQt` oder `install PyQt.py` doppelklicken. Drücken Sie die Eingabe-Taste, wenn Sie dazu aufgefordert werden.
-7. Starten Sie das Spiel, indem sie auf die Datei `ProjectL` oder `ProjectL.pyw` doppelklicken.
+
+#### Fedora
+
+1. Öffnen Sie ein Terminal, geben den Befehl `sudo dnf install python3 python3-qt5` ein und drücken Enter.
+2. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (TAR.GZ-Datei) herunter.
+
+#### Ubuntu
+
+1. Öffnen Sie ein Terminal, geben den Befehl `sudo apt-get update && sudo apt-get install python3 python-pyqt5` ein und drücken Enter.
+2. Laden Sie ProjectL [hier](https://github.com/ProjectL-Team/ProjectL/releases) als gepacktes Archiv (TAR.GZ-Datei) herunter.
+
+#### Alle Systeme
+
+1. Entpacken bzw. extrahieren Sie das Archiv in einem Ordner ihrer Wahl.
+2. Installieren Sie PyQt5, in dem Sie im Ordner von ProjectL die Datei `install PyQt` oder `install PyQt.py` doppelklicken. Drücken Sie die Eingabe-Taste, wenn Sie dazu aufgefordert werden.
+3. Starten Sie das Spiel, indem sie auf die Datei `ProjectL` oder `ProjectL.pyw` doppelklicken.
 
 ### So wird gespielt:
 
